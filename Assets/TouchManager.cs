@@ -6,7 +6,8 @@ using UnityEngine;
 public class TouchManager : MonoBehaviour
 {
     public static Transform selected;
-    public float magnetSpeed;
+    public float magnetSpeed, cameraSpeed;
+    public Transform camera;
     void Update()
     {
         if (selected != null)
@@ -79,13 +80,17 @@ public class TouchManager : MonoBehaviour
 
             }
         }
-        if (Input.touchCount >= 1 && selected == null)
+        if (Input.touchCount == 1 && selected == null)
         {
             var ray = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector3.forward);
             if (ray.collider != null && ray.transform.tag != "NotDrag" && ray.transform.tag != "Ground")
             {
                 selected = ray.transform;
             }
+        }
+        else if (Input.touchCount == 2 && selected == null)
+        {
+            camera.transform.Translate(-Input.GetTouch(0).deltaPosition * cameraSpeed * Time.deltaTime);
         }
     }
 }

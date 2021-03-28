@@ -22,14 +22,18 @@ public class PhysicRocketPart : MonoBehaviour
             {
                 Instantiate(FindObjectOfType<Rocket>().explode.gameObject, transform.position, Quaternion.identity);
                 GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
-                var parentjoint = parent.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == GetComponent<Rigidbody2D>());
-                Destroy(parentjoint.hingeJoint);
+                if (parent != null)
+                {
+                    var parentjoint = parent.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == GetComponent<Rigidbody2D>());
+                    parentjoint.obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
 
-                transform.parent = null;
+                    Destroy(parentjoint.hingeJoint);
+                    transform.parent = null;
+                }
                 for (int i = 0; i < jointConnectors.Count; i++)
                 {
-                    jointConnectors[i].obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 1000f, ForceMode2D.Impulse);
-
+                    if (jointConnectors[i].obj != null)
+                        jointConnectors[i].obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
                     Destroy(jointConnectors[i].hingeJoint);
                 }
                 Destroy(gameObject);
@@ -43,10 +47,10 @@ public class PhysicRocketPart : MonoBehaviour
 
     public void ConnectAllChilds()
     {
-        while(transform.childCount != 0)
+        for (int i = 0; i < transform.childCount; i++)
         {
 
-            if(transform.GetChild(0).GetComponent<Rigidbody2D>() != null)
+            if (transform.GetChild(0).GetComponent<Rigidbody2D>() != null)
             {
                 var joint = transform.gameObject.AddComponent<HingeJoint2D>();
                 joint.useLimits = true;
@@ -59,7 +63,7 @@ public class PhysicRocketPart : MonoBehaviour
             }
             else
             {
-                Destroy(transform.GetChild(0));
+                Destroy(transform.GetChild(0).gameObject);
             }
         }
     }

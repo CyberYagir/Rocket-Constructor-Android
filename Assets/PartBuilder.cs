@@ -11,19 +11,12 @@ public class PartBuilder : MonoBehaviour
 
     public void setTag(string tag, bool log = false)
     {
-        if (log)
-        {
-            Debug.ClearDeveloperConsole();
-            print("To tag: " + tag);
-        }
         if (points[0].tag != tag)
         {
             var builders = GetComponentsInChildren<PartBuilder>().ToList();
             builders.Add(this);
             for (int i = 0; i < builders.Count; i++)
             {
-                if (log)
-                print(builders[i].name + ": " + builders[i].points[0].tag);
                 for (int j = 0; j < builders[i].points.Length; j++)
                 {
                     builders[i].points[j].tag = tag;
