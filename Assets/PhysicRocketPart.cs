@@ -17,27 +17,25 @@ public class PhysicRocketPart : MonoBehaviour
     {
         velDelta = oldVel - GetComponent<Rigidbody2D>().velocity.y;
         oldVel = GetComponent<Rigidbody2D>().velocity.y;
-        if (velDelta < -5f) {
-            if (GetComponent<Rigidbody2D>().velocity.normalized.y < -0.5f)
+        if (velDelta < -3f)
+        {
+            Instantiate(Manager.explode.gameObject, transform.position, Quaternion.identity);
+            GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
+            if (parent != null)
             {
-                Instantiate(FindObjectOfType<Rocket>().explode.gameObject, transform.position, Quaternion.identity);
-                GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
-                if (parent != null)
-                {
-                    var parentjoint = parent.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == GetComponent<Rigidbody2D>());
-                    parentjoint.obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
+                var parentjoint = parent.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == GetComponent<Rigidbody2D>());
+                parentjoint.obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
 
-                    Destroy(parentjoint.hingeJoint);
-                    transform.parent = null;
-                }
-                for (int i = 0; i < jointConnectors.Count; i++)
-                {
-                    if (jointConnectors[i].obj != null)
-                        jointConnectors[i].obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
-                    Destroy(jointConnectors[i].hingeJoint);
-                }
-                Destroy(gameObject);
+                Destroy(parentjoint.hingeJoint);
+                transform.parent = null;
             }
+            for (int i = 0; i < jointConnectors.Count; i++)
+            {
+                if (jointConnectors[i].obj != null)
+                    jointConnectors[i].obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
+                Destroy(jointConnectors[i].hingeJoint);
+            }
+            Destroy(gameObject);
         }
     }
 

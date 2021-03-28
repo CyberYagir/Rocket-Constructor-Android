@@ -10,10 +10,13 @@ public class Rocket : MonoBehaviour
     public bool exploded;
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
     {
+        if (GetComponent<Rigidbody2D>() != null)
+        {
+            Camera.main.transform.position = transform.position + new Vector3(0, 0, -10);
+        }
     }
 
 }
