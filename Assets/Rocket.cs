@@ -16,6 +16,17 @@ public class Rocket : MonoBehaviour
         if (GetComponent<Rigidbody2D>() != null)
         {
             Camera.main.transform.position = transform.position + new Vector3(0, 0, -10);
+
+            if (transform.position.y < 5000f)
+            {
+                if (GetComponent<Rigidbody2D>().velocity.y < -20f)
+                {
+                    for (int i = 0; i < parts.Count; i++)
+                    {
+                        parts[i].GetComponent<Rigidbody2D>().AddForce(Vector3.up * 20f, ForceMode2D.Force);
+                    }
+                }
+            }
         }
     }
 
