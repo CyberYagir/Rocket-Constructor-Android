@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5354397822995173356}
   - component: {fileID: 5354397822995173353}
   - component: {fileID: 5354397822995173354}
+  - component: {fileID: 2116204775282305799}
+  - component: {fileID: -8220215963313574728}
   m_Layer: 0
   m_Name: PartFuel
   m_TagString: Untagged
@@ -135,6 +137,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.875, y: 1.25}
   m_EdgeRadius: 0
+--- !u!114 &2116204775282305799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5354397822995173357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cffedcbd1a77d4fa46651e9fedd6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuel: 0
+  maxFuel: 0
+--- !u!114 &-8220215963313574728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5354397822995173357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3f4e18bed365f4c89e93089fe699e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partName: Fuel Tank
 --- !u!1 &5354397823245169339
 GameObject:
   m_ObjectHideFlags: 0

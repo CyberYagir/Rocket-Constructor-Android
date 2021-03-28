@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 public class PartBuilder : MonoBehaviour
 {
     public Transform[] points;
     public Transform pin, point;
     public List<Transform> pinned = new List<Transform>(), connectPoint = new List<Transform>();
+
+
 
     public void setTag(string tag, bool log = false)
     {

@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 7989024133651506405}
   - component: {fileID: 7989024133651506400}
   - component: {fileID: 7989024133651506403}
+  - component: {fileID: 2254546759404889278}
   m_Layer: 0
   m_Name: Fairing
   m_TagString: Untagged
@@ -211,3 +212,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.875, y: 1.25}
   m_EdgeRadius: 0
+--- !u!114 &2254546759404889278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989024133651506404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3f4e18bed365f4c89e93089fe699e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partName: Fairing

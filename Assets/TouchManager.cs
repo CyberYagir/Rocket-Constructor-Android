@@ -83,9 +83,11 @@ public class TouchManager : MonoBehaviour
         if (Input.touchCount == 1 && selected == null)
         {
             var ray = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector3.forward);
-            if (ray.collider != null && ray.transform.tag != "NotDrag" && ray.transform.tag != "Ground")
-            {
-                selected = ray.transform;
+            if (ray.collider != null) {
+                if (ray.transform.tag != "NotDrag" && ray.transform.tag != "Ground")
+                {
+                    selected = ray.transform;
+                }
             }
         }
         else if (Input.touchCount == 2 && selected == null)

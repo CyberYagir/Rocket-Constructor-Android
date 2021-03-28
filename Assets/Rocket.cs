@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Group
+{
+    public string name;
+    public List<Group> groups = new List<Group>();
+    public List<Thruster> thruster = new List<Thruster>();
+    public List<FuelTank> fuelTanks = new List<FuelTank>();
+}
 public class Rocket : MonoBehaviour
 {
     public Rigidbody2D rb;
     public GameObject explode;
     public List<Transform> parts;
     public bool exploded;
-    private void Start()
-    {
-    }
+    public List<Group> groups = new List<Group>();
+
     private void Update()
     {
         if (GetComponent<Rigidbody2D>() != null)
@@ -23,7 +29,20 @@ public class Rocket : MonoBehaviour
                 {
                     for (int i = 0; i < parts.Count; i++)
                     {
-                        parts[i].GetComponent<Rigidbody2D>().AddForce(Vector3.up * 20f, ForceMode2D.Force);
+                        if (parts[i] != null)
+                        {
+                            parts[i].GetComponent<Rigidbody2D>().AddForce(Vector3.up * 20f, ForceMode2D.Force);
+                        }
+                    }
+                }
+                else if (transform.position.y > 20f)
+                {
+                    for (int i = 0; i < parts.Count; i++)
+                    {
+                        if (parts[i] != null)
+                        {
+                            parts[i].GetComponent<Rigidbody2D>().gravityScale = ((5000f - transform.position.y) / 5000f);
+                        }
                     }
                 }
             }

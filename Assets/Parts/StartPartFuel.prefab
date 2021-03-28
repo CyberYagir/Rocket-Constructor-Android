@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 1954798782455147204}
   - component: {fileID: 5354397823844122114}
   - component: {fileID: 6525996033604828950}
+  - component: {fileID: 1893170527378216098}
   m_Layer: 0
   m_Name: StartPartFuel
   m_TagString: MainPart
@@ -316,6 +317,19 @@ MonoBehaviour:
   explode: {fileID: 5486889796025297758, guid: d0b6ea3fb71b0014890188bea52365af, type: 3}
   parts: []
   exploded: 0
+--- !u!114 &1893170527378216098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954798782455147203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3f4e18bed365f4c89e93089fe699e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partName: Main Corpus
 --- !u!1 &1954798782679751117
 GameObject:
   m_ObjectHideFlags: 0

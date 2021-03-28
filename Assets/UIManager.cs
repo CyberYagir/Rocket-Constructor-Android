@@ -35,9 +35,11 @@ public class UIManager : MonoBehaviour
     }
     public void StartSimulation()
     {
+        TouchManager.selected = null;
         shopB.SetActive(false);
         startB.SetActive(false);
         stopB.SetActive(true);
+        
         allParts = new List<GameObject>();
         rocket = GameObject.FindGameObjectWithTag("MainPart");
         rocket.SetActive(false);
