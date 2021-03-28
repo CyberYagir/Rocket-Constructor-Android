@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 1954798782455147202}
   - component: {fileID: 1954798782455147204}
   - component: {fileID: 5354397823844122114}
+  - component: {fileID: 6525996033604828950}
   m_Layer: 0
   m_Name: StartPartFuel
   m_TagString: MainPart
@@ -299,6 +300,22 @@ MonoBehaviour:
   point: {fileID: 0}
   pinned: []
   connectPoint: []
+--- !u!114 &6525996033604828950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954798782455147203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b2503046e8caed4bb84d26f842399b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  explode: {fileID: 5486889796025297758, guid: d0b6ea3fb71b0014890188bea52365af, type: 3}
+  parts: []
+  exploded: 0
 --- !u!1 &1954798782679751117
 GameObject:
   m_ObjectHideFlags: 0

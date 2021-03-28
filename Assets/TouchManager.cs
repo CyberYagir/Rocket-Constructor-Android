@@ -41,6 +41,7 @@ public class TouchManager : MonoBehaviour
                         sel.pinned = new List<Transform>();
                         sel.connectPoint = new List<Transform>();
                         selected.parent = sel.pin.GetComponentInParent<PartBuilder>().transform;
+                        selected.SetSiblingIndex(0);
                         var n = GameObject.FindGameObjectsWithTag("Pin");
                         for (int j = 0; j < sel.points.Length; j++)
                         {
@@ -81,7 +82,7 @@ public class TouchManager : MonoBehaviour
         if (Input.touchCount >= 1 && selected == null)
         {
             var ray = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector3.forward);
-            if (ray.collider != null && ray.transform.tag != "NotDrag")
+            if (ray.collider != null && ray.transform.tag != "NotDrag" && ray.transform.tag != "Ground")
             {
                 selected = ray.transform;
             }
