@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class JointConnector{
     public Rigidbody2D obj;
-    public HingeJoint2D hingeJoint;
+    public FixedJoint2D hingeJoint;
 }
 
 public class PhysicRocketPart : MonoBehaviour
@@ -16,6 +16,17 @@ public class PhysicRocketPart : MonoBehaviour
     bool init;
     private void FixedUpdate()
     {
+        if (!init)
+        {
+            for (int i = 0; i < jointConnectors.Count; i++)
+            {
+                if (jointConnectors[i].hingeJoint != null)
+                {
+                    jointConnectors[i].hingeJoint.autoConfigureConnectedAnchor = false;
+                }
+            }
+            init = false;
+        }
         velDelta = oldVel - GetComponent<Rigidbody2D>().velocity.y;
         oldVel = GetComponent<Rigidbody2D>().velocity.y;
         if (velDelta < -3f && GetComponent<Rigidbody2D>().velocity.y < 0)
@@ -37,14 +48,6 @@ public class PhysicRocketPart : MonoBehaviour
                 Destroy(jointConnectors[i].hingeJoint);
             }
             Destroy(gameObject);
-        }
-        if (!init)
-        {
-            for (int i = 0; i < jointConnectors.Count; i++)
-            {
-                jointConnectors[i].hingeJoint.autoConfigureConnectedAnchor = false;
-            }
-            init = false;
         }
     }
 
@@ -74,9 +77,9 @@ public class PhysicRocketPart : MonoBehaviour
 
             if (transform.GetChild(0).GetComponent<Rigidbody2D>() != null)
             {
-                var joint = transform.gameObject.AddComponent<HingeJoint2D>();
-                joint.useLimits = true;
-                joint.limits = new JointAngleLimits2D() { min = 0, max = 0 };
+                var joint = transform.gameObject.AddComponent<FixedJoint2D>();
+                //joint.useLimits = true;
+                //joint.limits = new JointAngleLimits2D() { min = 0, max = 0 };
                 joint.connectedBody = transform.GetChild(0).GetComponent<Rigidbody2D>();
                 joint.connectedBody.mass = transform.GetComponent<Part>().mass;
                 transform.GetChild(0).GetComponent<PhysicRocketPart>().parent = gameObject;

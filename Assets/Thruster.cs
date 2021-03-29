@@ -31,8 +31,6 @@ public class Thruster : Part
         if (rb != null && run)
         {
             var parent = gameObject;
-
-
             bool can = false;
             while (can == false)
             {
