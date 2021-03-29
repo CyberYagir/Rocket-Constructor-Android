@@ -26,16 +26,24 @@ public class GroupItem : MonoBehaviour
         for (int i = 0; i < group.parts.Count; i++)
         {
             var n = FindObjectsOfType<Part>().ToList().Find(x => x.partFullName == group.parts[i].partFullName);
-
-            n.gameObject.GetComponent<Thruster>().run = true;
-
+            if (n != null)
+            {
+                if (n.gameObject.GetComponent<Thruster>())
+                {
+                    n.gameObject.GetComponent<Thruster>().run = !n.gameObject.GetComponent<Thruster>().run;
+                }
+            }
         }
     }
     public void Detach()
     {
         for (int i = 0; i < group.parts.Count; i++)
         {
-            group.parts[i].GetComponent<PhysicRocketPart>().Detach();
+            var n = FindObjectsOfType<Part>().ToList().Find(x => x.partFullName == group.parts[i].partFullName);
+            if (n != null)
+            {
+                n.GetComponent<PhysicRocketPart>().Detach();
+            }
         }
     }
     private void Update()

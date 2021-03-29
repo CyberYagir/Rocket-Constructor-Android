@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class UIManager : MonoBehaviour
     public GameObject shopB, startB, stopB;
     public static UIManager manager;
     public static bool simulate;
+    public TMP_Text infoText;
+    public GameObject controls;
     public void Start()
     {
         manager = this;
@@ -38,7 +41,26 @@ public class UIManager : MonoBehaviour
     {
         groups.Play("Hide");
     }
-
+    private void Update()
+    {
+        if (simulate)
+        {
+            if (simRocket != null)
+            {
+                float mass = 0;
+                var p =  FindObjectsOfType<Part>();
+                for (int i = 0; i < p.Length; i++)
+                {
+                    mass += p[i].GetComponent<Rigidbody2D>().mass;
+                }
+                var rb = simRocket.GetComponent<Rigidbody2D>();
+                infoText.text =
+                    $"Altitude: {simRocket.transform.position.y.ToString("000 000")} m." + "\n"
+                   + $"Velocity: {rb.velocity.x.ToString("000")} - {rb.velocity.y.ToString("000")} km." + "\n"
+                   + $"Mass: {mass.ToString("0000.00")} t.";
+            }
+        }
+    }
 
     public void StopSimulation()
     {
@@ -55,13 +77,18 @@ public class UIManager : MonoBehaviour
         startB.SetActive(true);
         stopB.SetActive(false);
         turret.SetActive(true);
+        controls.SetActive(false);
+        infoText.transform.parent.gameObject.SetActive(false);
     }
     public void StartSimulation()
     {
         rocket = FindObjectOfType<TurretHandle>().mainRocket.gameObject;
         if (rocket == null) return;
+        infoText.transform.parent.gameObject.SetActive(true);
 
         simulate = true;
+
+        controls.SetActive(true);
         TouchManager.selected = null;
         shopB.SetActive(false);
         startB.SetActive(false);
@@ -79,8 +106,9 @@ public class UIManager : MonoBehaviour
         {
             item.GetComponent<Part>().randomName = false;
             var rb = item.gameObject.AddComponent<Rigidbody2D>();
-            rb.drag = 3;
-            rb.angularDrag = 3;
+            rb.mass = item.GetComponent<Part>().mass;
+            rb.drag = 1;
+            rb.angularDrag = 1;
             item.gameObject.AddComponent<PhysicRocketPart>();
             p.parts.Add(item.transform);
             item.transform.tag = "NotDrag";

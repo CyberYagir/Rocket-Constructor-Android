@@ -13,8 +13,12 @@ public class Rocket : MonoBehaviour
     public List<Transform> parts;
     public bool exploded;
 
+    public static float left = 0, right = 0;
+    public static float offcet;
+
     private void Update()
     {
+        offcet = left + right;
         if (UIManager.manager.simRocket != null)
         {
             Camera.main.gameObject.transform.position = UIManager.manager.simRocket.transform.position + new Vector3(0, 0, -10);

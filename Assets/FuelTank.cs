@@ -16,15 +16,15 @@ public class FuelTank : Part
             if (GetComponent<Rigidbody2D>() != null)
             {
                 GetComponent<Rigidbody2D>().mass = 2;
-                GetComponent<Rigidbody2D>().drag = 3;
-                GetComponent<Rigidbody2D>().angularDrag = 3;
+                GetComponent<Rigidbody2D>().drag = 1;
+                GetComponent<Rigidbody2D>().angularDrag = 1;
                 init = true;
             }
         }
         else
         {
             indic.transform.localScale = new Vector3((fuel / maxFuel), 1, 1);
-            GetComponent<Rigidbody2D>().mass = ((fuel / maxFuel) * 1.5f) + 0.5f;
+            GetComponent<Rigidbody2D>().mass = ((fuel / maxFuel)) + 0.2f;
         }
     }
 }

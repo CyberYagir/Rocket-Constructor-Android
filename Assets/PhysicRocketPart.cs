@@ -13,6 +13,7 @@ public class PhysicRocketPart : MonoBehaviour
     public List<JointConnector> jointConnectors = new List<JointConnector>();
     public float velDelta;
     float oldVel;
+    bool init;
     private void FixedUpdate()
     {
         velDelta = oldVel - GetComponent<Rigidbody2D>().velocity.y;
@@ -37,24 +38,27 @@ public class PhysicRocketPart : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        if (!init)
+        {
+            for (int i = 0; i < jointConnectors.Count; i++)
+            {
+                jointConnectors[i].hingeJoint.autoConfigureConnectedAnchor = false;
+            }
+            init = false;
+        }
     }
 
     public void Detach()
     {
-        //Instantiate(Manager.explode.gameObject, transform.position, Quaternion.identity);
-        GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-10, 1)) * 50f, ForceMode2D.Impulse);
         if (parent != null)
         {
             var parentjoint = parent.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == GetComponent<Rigidbody2D>());
-            parentjoint.obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-10, 1)) * 50f, ForceMode2D.Impulse);
             Destroy(parentjoint.hingeJoint);
             transform.parent = null;
             parent = null;
         }
         for (int i = 0; i < jointConnectors.Count; i++)
         {
-            if (jointConnectors[i].obj != null)
-                jointConnectors[i].obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, -1)) * 50f, ForceMode2D.Impulse);
             Destroy(jointConnectors[i].hingeJoint);
         }
     }
@@ -74,6 +78,7 @@ public class PhysicRocketPart : MonoBehaviour
                 joint.useLimits = true;
                 joint.limits = new JointAngleLimits2D() { min = 0, max = 0 };
                 joint.connectedBody = transform.GetChild(0).GetComponent<Rigidbody2D>();
+                joint.connectedBody.mass = transform.GetComponent<Part>().mass;
                 transform.GetChild(0).GetComponent<PhysicRocketPart>().parent = gameObject;
                 var conn = new JointConnector() { obj = transform.GetChild(0).GetComponent<Rigidbody2D>(), hingeJoint = joint };
                 jointConnectors.Add(conn);

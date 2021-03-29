@@ -15,6 +15,8 @@ public class Thruster : Part
     public SpriteRenderer icon;
     public PhysicRocketPart pPart;
     public Sprite hidedTruster, normalThruster;
+
+    
     private void Update()
     {
         if (rb == null)
@@ -59,7 +61,7 @@ public class Thruster : Part
                 }
             }
 
-            rb.AddRelativeForce(Vector3.up * sharedForce * Time.deltaTime, ForceMode2D.Force);
+            rb.AddRelativeForce((Vector3.up + new Vector3(Rocket.offcet,0)) * sharedForce * Time.deltaTime, ForceMode2D.Force);
         }
         fire.SetActive(run);
         if (!pPart)

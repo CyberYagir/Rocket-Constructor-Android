@@ -8,7 +8,7 @@ public class GroupsManager : MonoBehaviour
     public GameObject canvas, endCanvas;
     public bool select;
     public Group group;
-    
+
     public void EndEdit()
     {
         for (int i = 0; i < group.parts.Count; i++)
@@ -25,6 +25,7 @@ public class GroupsManager : MonoBehaviour
     {
         if (!UIManager.simulate)
         {
+            group.parts = new List<Part>();
             UIManager.manager.gameObject.SetActive(false);
             TouchManager.touchManager.enabled = false;
             select = true;

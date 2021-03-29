@@ -6,6 +6,7 @@ public class Part : MonoBehaviour
 {
     public string partName;
     public string partFullName;
+    public float mass;
     public bool mode = false;
     public bool randomName = true;
     public void Start()

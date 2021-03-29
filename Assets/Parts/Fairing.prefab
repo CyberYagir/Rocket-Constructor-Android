@@ -239,4 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partName: Fairing
+  partFullName: 
+  mass: 0.2
   mode: 0
+  randomName: 1

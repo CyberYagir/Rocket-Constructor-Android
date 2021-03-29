@@ -324,8 +324,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partName: Thruster
+  partFullName: 
+  mass: 0.5
   mode: 0
-  force: 15000
+  randomName: 1
+  force: 18000
   sharedForce: 0
   run: 0
   fueleat: 5
