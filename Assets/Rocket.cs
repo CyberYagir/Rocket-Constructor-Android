@@ -1,31 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class Group
 {
     public string name;
-    public List<Group> groups = new List<Group>();
-    public List<Thruster> thruster = new List<Thruster>();
-    public List<FuelTank> fuelTanks = new List<FuelTank>();
+    public List<Part> parts = new List<Part>();
 }
 public class Rocket : MonoBehaviour
 {
-    public Rigidbody2D rb;
     public GameObject explode;
     public List<Transform> parts;
     public bool exploded;
-    public List<Group> groups = new List<Group>();
 
     private void Update()
     {
-        if (GetComponent<Rigidbody2D>() != null)
+        if (UIManager.manager.simRocket != null)
         {
-            Camera.main.transform.position = transform.position + new Vector3(0, 0, -10);
+            Camera.main.gameObject.transform.position = UIManager.manager.simRocket.transform.position + new Vector3(0, 0, -10);
 
-            if (transform.position.y < 5000f)
+            if (UIManager.manager.simRocket.transform.position.y < 5000f)
             {
-                if (GetComponent<Rigidbody2D>().velocity.y < -20f)
+                if (UIManager.manager.simRocket.GetComponent<Rigidbody2D>().velocity.y < -20f)
                 {
                     for (int i = 0; i < parts.Count; i++)
                     {
@@ -35,13 +31,16 @@ public class Rocket : MonoBehaviour
                         }
                     }
                 }
-                else if (transform.position.y > 20f)
+                else if (UIManager.manager.simRocket.transform.position.y > 20f)
                 {
                     for (int i = 0; i < parts.Count; i++)
                     {
                         if (parts[i] != null)
                         {
-                            parts[i].GetComponent<Rigidbody2D>().gravityScale = ((5000f - transform.position.y) / 5000f);
+                            parts[i].GetComponent<Rigidbody2D>().gravityScale = ((5000f - UIManager.manager.simRocket.transform.position.y) / 5000f);
+                            parts[i].GetComponent<Rigidbody2D>().drag = ((5000f - UIManager.manager.simRocket.transform.position.y) / 5000f) * 3f;
+                            parts[i].GetComponent<Rigidbody2D>().angularDrag = ((5000f - UIManager.manager.simRocket.transform.position.y) / 5000f) * 3f;
+
                         }
                     }
                 }

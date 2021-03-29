@@ -49,9 +49,17 @@ public class PartBuilder : MonoBehaviour
                 }
                 if (id != -1 && min < 0.4f)
                 {
-                    pin = pins[id].transform;
-                    point = points[j];
-                    break;
+                    if (pins[id].GetComponent<PinType>().Check(points[j].GetComponent<PinType>()))
+                    {
+                        pin = pins[id].transform;
+                        point = points[j];
+                        break;
+                    }
+                    else
+                    {
+                        pin = null;
+                        point = null;
+                    }
                 }
                 else
                 {

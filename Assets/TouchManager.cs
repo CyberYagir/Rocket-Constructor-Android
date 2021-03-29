@@ -6,8 +6,15 @@ using UnityEngine;
 public class TouchManager : MonoBehaviour
 {
     public static Transform selected;
+    public static TouchManager touchManager;
     public float magnetSpeed, cameraSpeed;
     public Transform camera;
+
+    private void Start()
+    {
+        touchManager = this;
+    }
+
     void Update()
     {
         if (selected != null)
@@ -63,8 +70,10 @@ public class TouchManager : MonoBehaviour
                     }
                     else
                     {
-                        if (selected.transform.tag != "MainPart")
+                        if (FindObjectsOfType<PartBuilder>().Length > 1 && FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject)
+                        {
                             Destroy(selected.gameObject);
+                        }
                     }
                     if (selected != null)
                     {
