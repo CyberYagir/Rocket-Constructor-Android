@@ -7,8 +7,7 @@ using UnityEngine;
 public class PartBuilder : MonoBehaviour
 {
     public Transform[] points;
-    public Transform pin, point;
-    public List<Transform> pinned = new List<Transform>(), connectPoint = new List<Transform>();
+    public List<Transform> currPins = new List<Transform>(), connectPins = new List<Transform>();
 
 
 
@@ -27,16 +26,60 @@ public class PartBuilder : MonoBehaviour
             }
         }
     }
+    public void Connect()
+    {
+        for (int i = 0; i < currPins.Count; i++)
+        {
+            currPins[i].gameObject.SetActive(false);
+            connectPins[i].gameObject.SetActive(false);
+            connectPins[i].parent.GetComponent<PartBuilder>().connectPins.Add(currPins[i]);
+            connectPins[i].parent.GetComponent<PartBuilder>().currPins.Add(connectPins[i]);
+        }
+        
+        transform.position = connectPins[0].position - currPins[0].localPosition;
+        transform.parent = connectPins[0].parent.transform;
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i].tag = "Pin";
+        }
+    }
+    public void Unconnect()
+    {
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i].tag = "Untagged";
+        }
+        transform.parent = null;
+        for (int i = 0; i < currPins.Count; i++)
+        {
+            if (connectPins[i].parent.parent != transform)
+            {
+                connectPins[i].parent.GetComponent<PartBuilder>().connectPins.Remove(currPins[i]);
+                connectPins[i].parent.GetComponent<PartBuilder>().currPins.Remove(connectPins[i]);
+                currPins[i].gameObject.SetActive(true);
+                connectPins[i].gameObject.SetActive(true);
+                currPins.Remove(currPins[i]);
+                connectPins.Remove(connectPins[i]);
+            }
+        }
+        currPins = new List<Transform>();
+        connectPins = new List<Transform>();
+    }
     private void Update()
     {
         if (Input.touchCount == 1 && TouchManager.selected == transform)
         {
-            setTag("Untagged");
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                Unconnect();
+            }
+
+            currPins = new List<Transform>();
+            connectPins = new List<Transform>();
             var pins = GameObject.FindGameObjectsWithTag("Pin").ToList();
             for (int j = 0; j < points.Length; j++)
             {
                 var min = 999999f;
-                
                 var id = -1;
                 for (int i = 0; i < pins.Count; i++)
                 {
@@ -47,31 +90,15 @@ public class PartBuilder : MonoBehaviour
                         id = i;
                     }
                 }
-                if (id != -1 && min < 0.4f)
+                if (id != -1 && min < 0.55f)
                 {
                     if (pins[id].GetComponent<PinType>().Check(points[j].GetComponent<PinType>()))
                     {
-                        pin = pins[id].transform;
-                        point = points[j];
-                        break;
+                        currPins.Add(points[j].transform);
+                        connectPins.Add(pins[id].transform);
                     }
-                    else
-                    {
-                        pin = null;
-                        point = null;
-                    }
-                }
-                else
-                {
-                    pin = null;
-                    point = null;
                 }
             }
-        }
-        else
-        {
-            pin = null;
-            point = null;
         }
     }
 }

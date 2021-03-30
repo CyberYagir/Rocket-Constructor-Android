@@ -33,12 +33,14 @@ public class UIManager : MonoBehaviour
 
     public void ShowGroups()
     {
+        TouchManager.touchManager.enabled = false;
         LayoutRebuilder.ForceRebuildLayoutImmediate(groups.GetComponent<RectTransform>());
         groups.Play("Show");
     }
 
     public void HideGroups()
     {
+        TouchManager.touchManager.enabled = true;
         groups.Play("Hide");
     }
     private void Update()

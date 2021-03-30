@@ -25,54 +25,19 @@ public class TouchManager : MonoBehaviour
             {
                 selected.position = Vector2.Lerp((Vector2)selected.position, (Vector2)Camera.main.ScreenToWorldPoint(Input.touches[0].position), magnetSpeed * Time.deltaTime);
 
-                if (sel != null)
-                {
-                    for (int i = 0; i < sel.pinned.Count; i++)
-                    {
-                        sel.pinned[i].gameObject.SetActive(true);
-                    }
-                    for (int i = 0; i < sel.connectPoint.Count; i++)
-                    {
-                        sel.connectPoint[i].gameObject.SetActive(true);
-                    }
-                    sel.pinned = new List<Transform>();
-                    sel.connectPoint = new List<Transform>();
-                }
             }
             else
             {
                 if (sel != null)
                 {
-                    if (sel.pin != null)
-                    {
-                        sel.transform.position = sel.pin.transform.position - sel.point.localPosition;
-                        sel.pinned = new List<Transform>();
-                        sel.connectPoint = new List<Transform>();
-                        selected.parent = sel.pin.GetComponentInParent<PartBuilder>().transform;
-                        selected.SetSiblingIndex(0);
-                        var n = GameObject.FindGameObjectsWithTag("Pin");
-                        for (int j = 0; j < sel.points.Length; j++)
-                        {
-                            for (int i = 0; i < n.Length; i++)
-                            {
-                                if (sel.points[j] != n[i].transform)
-                                {
-                                    if (Vector2.Distance(sel.points[j].position, n[i].transform.position) <= 0.1f)
-                                    {
-                                        sel.connectPoint.Add(sel.points[j].transform);
-                                        sel.pinned.Add(n[i].transform);
-                                        sel.points[j].gameObject.SetActive(false);
-                                        n[i].gameObject.SetActive(false);
-                                    }
-                                }
-                            }
-                        }
+                    if (sel.currPins.Count != 0) {
+                        sel.Connect();
                     }
                     else
                     {
                         if (FindObjectsOfType<PartBuilder>().Length > 1 && FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject)
                         {
-                            Destroy(selected.gameObject);
+                            //Destroy(selected.gameObject);
                         }
                     }
                     if (selected != null)
