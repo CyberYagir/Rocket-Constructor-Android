@@ -28,40 +28,7 @@ public class Thruster : Part
         {
             pPart = GetComponent<PhysicRocketPart>();
         }
-        if (rb != null && run)
-        {
-            var prnt = gameObject;
-            bool can = false;
-            while (can == false)
-            {
-                prnt = prnt.gameObject.GetComponent<PhysicRocketPart>().parent.gameObject;
-                if (prnt != null)
-                {
-                    print(prnt.name);
-                    if (prnt.GetComponent<FuelTank>() != null)
-                    {
-                        if (prnt.GetComponent<FuelTank>().fuel > fueleat)
-                        {
-                            prnt.GetComponent<FuelTank>().fuel -= fueleat * Time.deltaTime;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        run = false;
-                        return;
-                    }
-                }
-                else
-                {
-                    run = false;
-                    return;
-                }
-            }
 
-            rb.AddRelativeForce((Vector3.up + new Vector3(Rocket.offcet,0)) * sharedForce * Time.deltaTime, ForceMode2D.Force);
-        }
-        fire.SetActive(run);
         if (!pPart)
         {
             foreach (Transform item in transform)
@@ -92,6 +59,41 @@ public class Thruster : Part
                 }
             }
         }
+
+        if (rb != null && run)
+        {
+            var prnt = transform;
+            bool can = false;
+            while (can == false)
+            {
+                prnt = prnt.gameObject.GetComponent<PhysicRocketPart>().parent;
+                if (prnt != null)
+                {
+                    if (prnt.GetComponent<FuelTank>() != null)
+                    {
+                        if (prnt.GetComponent<FuelTank>().fuel > fueleat)
+                        {
+                            prnt.GetComponent<FuelTank>().fuel -= fueleat * Time.deltaTime;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        run = false;
+                        return;
+                    }
+                }
+                else
+                {
+                    run = false;
+                    return;
+                }
+            }
+
+            rb.AddRelativeForce((Vector3.up + new Vector3(Rocket.offcet,0)) * sharedForce * Time.deltaTime, ForceMode2D.Force);
+        }
+        fire.SetActive(run);
+        
     }
 
     public void ModeChange()
