@@ -10,7 +10,7 @@ public class JointConnector{
 
 public class PhysicRocketPart : MonoBehaviour
 {
-    public GameObject parent;
+    public Transform parent;
     public List<JointConnector> jointConnectors = new List<JointConnector>();
     public float velDelta;
     float oldVel;

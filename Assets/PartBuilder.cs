@@ -39,7 +39,7 @@ public class PartBuilder : MonoBehaviour
             connectPoints[i].objectPin.gameObject.SetActive(false);
             connectPoints[i].connectPin.parent.GetComponent<PartBuilder>().connectPoints.Insert(0, new ConnectPoints() { objectPin = connectPoints[i].connectPin, connectPin = connectPoints[i].objectPin });
         }
-        print("Connect");
+
 
         transform.position = connectPoints[0].connectPin.position - connectPoints[0].objectPin.localPosition;
         transform.parent = connectPoints[0].connectPin.parent.transform;

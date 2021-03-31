@@ -30,19 +30,19 @@ public class Thruster : Part
         }
         if (rb != null && run)
         {
-            var parent = gameObject;
+            var prnt = gameObject;
             bool can = false;
             while (can == false)
             {
-                parent = parent.GetComponent<PhysicRocketPart>().parent;
-                if (parent != null)
+                prnt = prnt.gameObject.GetComponent<PhysicRocketPart>().parent.gameObject;
+                if (prnt != null)
                 {
-                    print(parent.name);
-                    if (parent.GetComponent<FuelTank>() != null)
+                    print(prnt.name);
+                    if (prnt.GetComponent<FuelTank>() != null)
                     {
-                        if (parent.GetComponent<FuelTank>().fuel > fueleat)
+                        if (prnt.GetComponent<FuelTank>().fuel > fueleat)
                         {
-                            parent.GetComponent<FuelTank>().fuel -= fueleat * Time.deltaTime;
+                            prnt.GetComponent<FuelTank>().fuel -= fueleat * Time.deltaTime;
                             break;
                         }
                     }
@@ -76,7 +76,7 @@ public class Thruster : Part
         else
         {
 
-            if (pPart.jointConnectors.Count == 0)
+            if (pPart.jointConnectors.Count <= 1)
             {
                 GetComponent<SpriteRenderer>().sprite = normalThruster;
             }
