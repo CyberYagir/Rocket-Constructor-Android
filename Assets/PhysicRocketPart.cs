@@ -70,27 +70,29 @@ public class PhysicRocketPart : MonoBehaviour
     {
     }
 
-    public void ConnectAllChilds()
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
 
-            if (transform.GetChild(0).GetComponent<Rigidbody2D>() != null)
-            {
-                var joint = transform.gameObject.AddComponent<FixedJoint2D>();
-                //joint.useLimits = true;
-                //joint.limits = new JointAngleLimits2D() { min = 0, max = 0 };
-                joint.connectedBody = transform.GetChild(0).GetComponent<Rigidbody2D>();
-                joint.connectedBody.mass = transform.GetComponent<Part>().mass;
-                transform.GetChild(0).GetComponent<PhysicRocketPart>().parent = gameObject;
-                var conn = new JointConnector() { obj = transform.GetChild(0).GetComponent<Rigidbody2D>(), hingeJoint = joint };
-                jointConnectors.Add(conn);
-                transform.GetChild(0).parent = null;
-            }
-            else
-            {
-                Destroy(transform.GetChild(0).gameObject);
-            }
+
+    public static void ConnectAllChilds(Transform trs)
+    {
+        var builder = trs.GetComponent<PartBuilder>();
+        for (int i = 0; i < builder.connectPins.Count; i++)
+        {
+            var toConnect = builder.connectPins[i].parent.GetComponent<Rigidbody2D>();
+
+
+
+            var joint = trs.gameObject.AddComponent<FixedJoint2D>();
+            //joint.useLimits = true;
+            //joint.limits = new JointAngleLimits2D() { min = 0, max = 0 };
+            joint.connectedBody = toConnect.GetComponent<Rigidbody2D>();
+            toConnect.mass = toConnect.GetComponent<Part>().mass;
+            builder.GetComponent<Rigidbody2D>().mass = builder.GetComponent<Part>().mass;
+
+            var conn = new JointConnector() { obj = toConnect, hingeJoint = joint };
+            trs.GetComponent<PhysicRocketPart>().jointConnectors.Add(conn);
+            toConnect.transform.parent = null;
+
+            ConnectAllChilds(toConnect.transform);
         }
     }
 }

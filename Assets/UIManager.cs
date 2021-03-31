@@ -117,9 +117,6 @@ public class UIManager : MonoBehaviour
             allParts.Add(item.gameObject);
             Destroy(item);
         }
-        for (int i = 0; i < p.parts.Count; i++)
-        {
-            p.parts[i].GetComponent<PhysicRocketPart>().ConnectAllChilds();
-        }
+        PhysicRocketPart.ConnectAllChilds(simRocket.transform);
     }
 }

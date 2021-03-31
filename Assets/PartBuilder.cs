@@ -50,6 +50,8 @@ public class PartBuilder : MonoBehaviour
             points[i].tag = "Untagged";
         }
         transform.parent = null;
+        var allchilds = GetComponentsInChildren<PartBuilder>();
+
         for (int i = 0; i < currPins.Count; i++)
         {
             if (connectPins[i].parent.parent != transform)
@@ -62,6 +64,24 @@ public class PartBuilder : MonoBehaviour
                 connectPins.Remove(connectPins[i]);
             }
         }
+        for (int j = 0; j < allchilds.Length; j++)
+        {
+            for (int i = 0; i < allchilds[j].connectPins.Count; i++)
+            {
+                if (!allchilds.Contains(allchilds[j].connectPins[i].parent.GetComponent<PartBuilder>()))
+                {
+                    allchilds[j].connectPins[i].parent.GetComponent<PartBuilder>().connectPins.Remove(allchilds[j].currPins[i]);
+                    allchilds[j].connectPins[i].parent.GetComponent<PartBuilder>().currPins.Remove(allchilds[j].connectPins[i]);
+                    
+                    allchilds[j].currPins[i].gameObject.SetActive(true);
+                    allchilds[j].connectPins[i].gameObject.SetActive(true);
+
+                    allchilds[j].currPins.Remove(allchilds[j].currPins[i]);
+                    allchilds[j].connectPins.Remove(allchilds[j].connectPins[i]);
+                }
+            }
+        }
+
         currPins = new List<Transform>();
         connectPins = new List<Transform>();
     }
@@ -73,7 +93,6 @@ public class PartBuilder : MonoBehaviour
             {
                 Unconnect();
             }
-
             currPins = new List<Transform>();
             connectPins = new List<Transform>();
             var pins = GameObject.FindGameObjectsWithTag("Pin").ToList();
@@ -99,6 +118,11 @@ public class PartBuilder : MonoBehaviour
                     }
                 }
             }
+
+            print(currPins.Count);
         }
+
+
+
     }
 }

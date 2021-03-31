@@ -35,9 +35,9 @@ public class TouchManager : MonoBehaviour
                     }
                     else
                     {
-                        if (FindObjectsOfType<PartBuilder>().Length > 1 && FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject)
+                        if (FindObjectsOfType<PartBuilder>().Length > 1 && FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject && sel.connectPins.Count == 0)
                         {
-                            //Destroy(selected.gameObject);
+                            Destroy(selected.gameObject);
                         }
                     }
                     if (selected != null)
