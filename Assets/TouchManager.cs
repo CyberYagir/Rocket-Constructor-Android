@@ -30,12 +30,17 @@ public class TouchManager : MonoBehaviour
             {
                 if (sel != null)
                 {
-                    if (sel.currPins.Count != 0) {
+                    if (sel.connectPoints.Count != 0) {
                         sel.Connect();
+
+                        if (sel.transform.parent == null && FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject)
+                        {
+                            Destroy(selected.gameObject);
+                        }
                     }
                     else
                     {
-                        if (FindObjectsOfType<PartBuilder>().Length > 1 && FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject && sel.connectPins.Count == 0)
+                        if (FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject)
                         {
                             Destroy(selected.gameObject);
                         }

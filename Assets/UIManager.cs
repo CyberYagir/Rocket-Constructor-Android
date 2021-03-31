@@ -112,11 +112,15 @@ public class UIManager : MonoBehaviour
             rb.drag = 1;
             rb.angularDrag = 1;
             item.gameObject.AddComponent<PhysicRocketPart>();
+           
             p.parts.Add(item.transform);
             item.transform.tag = "NotDrag";
             allParts.Add(item.gameObject);
             Destroy(item);
         }
-        PhysicRocketPart.ConnectAllChilds(simRocket.transform);
+        foreach (var item in simRocket.GetComponentsInChildren<PhysicRocketPart>())
+        {
+            item.ConnectAllChilds();
+        }
     }
 }

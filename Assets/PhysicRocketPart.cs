@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 [System.Serializable]
 public class JointConnector{
@@ -72,27 +73,44 @@ public class PhysicRocketPart : MonoBehaviour
 
 
 
-    public static void ConnectAllChilds(Transform trs)
+    public void ConnectAllChilds()
     {
-        var builder = trs.GetComponent<PartBuilder>();
-        for (int i = 0; i < builder.connectPins.Count; i++)
+        var builder = GetComponent<PartBuilder>();
+        transform.parent = null;
+        GetComponent<Rigidbody2D>().mass = GetComponent<Part>().mass;
+
+        for (int i = 0; i < builder.connectPoints.Count; i++)
         {
-            var toConnect = builder.connectPins[i].parent.GetComponent<Rigidbody2D>();
+            var connected = builder.connectPoints[i].connectPin.parent;
+            var connectedJoints = connected.GetComponents<HingeJoint2D>().ToList();
+            if (connectedJoints.Find(x=>x.connectedBody == GetComponent<Rigidbody2D>()) == null)
+            {
+                var joint = gameObject.AddComponent<FixedJoint2D>();
+                joint.connectedBody = connected.GetComponent<Rigidbody2D>();
+
+                var conn = new JointConnector() { obj = connected.GetComponent<Rigidbody2D>(), hingeJoint = joint };
+                jointConnectors.Add(conn);
 
 
+            }
 
-            var joint = trs.gameObject.AddComponent<FixedJoint2D>();
-            //joint.useLimits = true;
-            //joint.limits = new JointAngleLimits2D() { min = 0, max = 0 };
-            joint.connectedBody = toConnect.GetComponent<Rigidbody2D>();
-            toConnect.mass = toConnect.GetComponent<Part>().mass;
-            builder.GetComponent<Rigidbody2D>().mass = builder.GetComponent<Part>().mass;
+            //var toConnect = builder.connectPins[i].parent.GetComponent<Rigidbody2D>();
+            //print(toConnect.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == trs.GetComponent<Rigidbody2D>()));
+            //if (toConnect.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == trs.GetComponent<Rigidbody2D>()) == null)
+            //{
 
-            var conn = new JointConnector() { obj = toConnect, hingeJoint = joint };
-            trs.GetComponent<PhysicRocketPart>().jointConnectors.Add(conn);
-            toConnect.transform.parent = null;
+            //    var joint = trs.gameObject.AddComponent<FixedJoint2D>();
+            //    //joint.useLimits = true;
+            //    //joint.limits = new JointAngleLimits2D() { min = 0, max = 0 };
+            //    joint.connectedBody = toConnect.GetComponent<Rigidbody2D>();
+            //    toConnect.mass = toConnect.GetComponent<Part>().mass;
+            //    builder.GetComponent<Rigidbody2D>().mass = builder.GetComponent<Part>().mass;
 
-            ConnectAllChilds(toConnect.transform);
+            //    var conn = new JointConnector() { obj = toConnect, hingeJoint = joint };
+            //    trs.GetComponent<PhysicRocketPart>().jointConnectors.Add(conn);
+            //    toConnect.transform.parent = null;
+            //    ConnectAllChilds(toConnect.transform);
+            //}
         }
     }
 }

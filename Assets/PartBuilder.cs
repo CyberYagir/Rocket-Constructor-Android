@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
-
+[System.Serializable]
+public class ConnectPoints
+{
+    public Transform connectPin;
+    public Transform objectPin;
+    public bool toDel;
+}
 public class PartBuilder : MonoBehaviour
 {
     public Transform[] points;
-    public List<Transform> currPins = new List<Transform>(), connectPins = new List<Transform>();
+    public List<ConnectPoints> connectPoints = new List<ConnectPoints>();
 
 
 
@@ -28,16 +33,16 @@ public class PartBuilder : MonoBehaviour
     }
     public void Connect()
     {
-        for (int i = 0; i < currPins.Count; i++)
+        for (int i = 0; i < connectPoints.Count; i++)
         {
-            currPins[i].gameObject.SetActive(false);
-            connectPins[i].gameObject.SetActive(false);
-            connectPins[i].parent.GetComponent<PartBuilder>().connectPins.Add(currPins[i]);
-            connectPins[i].parent.GetComponent<PartBuilder>().currPins.Add(connectPins[i]);
+            connectPoints[i].connectPin.gameObject.SetActive(false);
+            connectPoints[i].objectPin.gameObject.SetActive(false);
+            connectPoints[i].connectPin.parent.GetComponent<PartBuilder>().connectPoints.Insert(0, new ConnectPoints() { objectPin = connectPoints[i].connectPin, connectPin = connectPoints[i].objectPin });
         }
-        
-        transform.position = connectPins[0].position - currPins[0].localPosition;
-        transform.parent = connectPins[0].parent.transform;
+        print("Connect");
+
+        transform.position = connectPoints[0].connectPin.position - connectPoints[0].objectPin.localPosition;
+        transform.parent = connectPoints[0].connectPin.parent.transform;
         for (int i = 0; i < points.Length; i++)
         {
             points[i].tag = "Pin";
@@ -49,41 +54,34 @@ public class PartBuilder : MonoBehaviour
         {
             points[i].tag = "Untagged";
         }
-        transform.parent = null;
-        var allchilds = GetComponentsInChildren<PartBuilder>();
-
-        for (int i = 0; i < currPins.Count; i++)
+        print("unconnect");
+        if (transform.parent != null)
         {
-            if (connectPins[i].parent.parent != transform)
+            var parent = transform.parent.GetComponent<PartBuilder>();
+            var connect = connectPoints.FindAll(x => x.connectPin.parent == parent.transform);
+            for (int i = 0; i < connect.Count; i++)
             {
-                connectPins[i].parent.GetComponent<PartBuilder>().connectPins.Remove(currPins[i]);
-                connectPins[i].parent.GetComponent<PartBuilder>().currPins.Remove(connectPins[i]);
-                currPins[i].gameObject.SetActive(true);
-                connectPins[i].gameObject.SetActive(true);
-                currPins.Remove(currPins[i]);
-                connectPins.Remove(connectPins[i]);
+                connect[i].connectPin.gameObject.SetActive(true);
+                connect[i].objectPin.gameObject.SetActive(true);
+                connectPoints.Remove(connect[i]);
             }
-        }
-        for (int j = 0; j < allchilds.Length; j++)
-        {
-            for (int i = 0; i < allchilds[j].connectPins.Count; i++)
-            {
-                if (!allchilds.Contains(allchilds[j].connectPins[i].parent.GetComponent<PartBuilder>()))
-                {
-                    allchilds[j].connectPins[i].parent.GetComponent<PartBuilder>().connectPins.Remove(allchilds[j].currPins[i]);
-                    allchilds[j].connectPins[i].parent.GetComponent<PartBuilder>().currPins.Remove(allchilds[j].connectPins[i]);
-                    
-                    allchilds[j].currPins[i].gameObject.SetActive(true);
-                    allchilds[j].connectPins[i].gameObject.SetActive(true);
+            parent.connectPoints.RemoveAll(x => x.connectPin.parent == transform);
+            transform.parent = null;
 
-                    allchilds[j].currPins.Remove(allchilds[j].currPins[i]);
-                    allchilds[j].connectPins.Remove(allchilds[j].connectPins[i]);
+
+            var childs = GetComponentsInChildren<PartBuilder>().ToList();
+            for (int i = 0; i < connectPoints.Count; i++)
+            {
+                if (!childs.Contains(connectPoints[i].connectPin.parent.GetComponent<PartBuilder>()))
+                {
+                    connectPoints[i].objectPin.gameObject.SetActive(true);
+                    connectPoints[i].connectPin.gameObject.SetActive(true);
+                    connectPoints[i].connectPin.parent.GetComponent<PartBuilder>().connectPoints.RemoveAll(x => x.connectPin.parent == transform);
+                    connectPoints[i].toDel = true;
                 }
             }
+            connectPoints.RemoveAll(x => x.toDel);
         }
-
-        currPins = new List<Transform>();
-        connectPins = new List<Transform>();
     }
     private void Update()
     {
@@ -93,36 +91,51 @@ public class PartBuilder : MonoBehaviour
             {
                 Unconnect();
             }
-            currPins = new List<Transform>();
-            connectPins = new List<Transform>();
-            var pins = GameObject.FindGameObjectsWithTag("Pin").ToList();
-            for (int j = 0; j < points.Length; j++)
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                var min = 999999f;
-                var id = -1;
-                for (int i = 0; i < pins.Count; i++)
+                var pins = GameObject.FindGameObjectsWithTag("Pin").ToList();
+                for (int j = 0; j < points.Length; j++)
                 {
-                    var dist = Vector2.Distance(points[j].transform.position, pins[i].transform.position);
-                    if (dist < min)
+                    var min = 999999f;
+                    var id = -1;
+                    for (int i = 0; i < pins.Count; i++)
                     {
-                        min = dist;
-                        id = i;
+                        var dist = Vector2.Distance(points[j].transform.position, pins[i].transform.position);
+                        if (dist < min)
+                        {
+                            min = dist;
+                            id = i;
+                        }
                     }
-                }
-                if (id != -1 && min < 0.55f)
-                {
-                    if (pins[id].GetComponent<PinType>().Check(points[j].GetComponent<PinType>()))
+                    if (id != -1 && min < 0.55f)
                     {
-                        currPins.Add(points[j].transform);
-                        connectPins.Add(pins[id].transform);
+                        var f = connectPoints.Find(x => x.connectPin == pins[id].transform && x.objectPin == points[j].transform);
+
+                        if (pins[id].GetComponent<PinType>().Check(points[j].GetComponent<PinType>()))
+                        {
+                            if (f == null)
+                            {
+                                connectPoints.Insert(0,new ConnectPoints() { connectPin = pins[id].transform, objectPin = points[j].transform });
+                            }
+                        }
+                        else
+                        {
+                            if (f != null)
+                            {
+                                connectPoints.Remove(f);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var f = connectPoints.Find(x => x.connectPin == pins[id].transform && x.objectPin == points[j].transform);
+                        if (f != null)
+                        {
+                            connectPoints.Remove(f);
+                        }
                     }
                 }
             }
-
-            print(currPins.Count);
         }
-
-
-
     }
 }
