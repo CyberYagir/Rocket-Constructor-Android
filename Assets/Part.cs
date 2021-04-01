@@ -9,6 +9,7 @@ public class Part : MonoBehaviour
     public float mass;
     public bool mode = false;
     public bool randomName = true;
+    public float cost;
     public void Start()
     {
         if (randomName)

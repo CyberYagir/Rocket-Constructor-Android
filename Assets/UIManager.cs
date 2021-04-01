@@ -14,13 +14,12 @@ public class UIManager : MonoBehaviour
     public GameObject shopB, startB, stopB;
     public static UIManager manager;
     public static bool simulate;
-    public TMP_Text infoText;
+    public TMP_Text infoText, money;
     public GameObject controls;
     public void Start()
     {
         manager = this;
     }
-
     public void ShowShop()
     {
         shop.Play("Show");
@@ -45,6 +44,7 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
+        money.text = Player.money.ToString();
         if (simulate)
         {
             if (simRocket != null)

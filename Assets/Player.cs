@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float money = 1000000;
+    public static float money = 1000000;
 
-    public string companyName = "NoName";
+    public static string companyName = "NoName";
 
 
-
+    
 
 }

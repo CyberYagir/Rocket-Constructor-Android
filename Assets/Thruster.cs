@@ -16,7 +16,6 @@ public class Thruster : Part
     public PhysicRocketPart pPart;
     public Sprite hidedTruster, normalThruster;
 
-    
     private void Update()
     {
         if (rb == null)

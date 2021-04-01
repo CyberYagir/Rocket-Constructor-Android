@@ -35,6 +35,14 @@ public class TouchManager : MonoBehaviour
 
                         if (sel.transform.parent == null && FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject)
                         {
+                            if (FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject)
+                            {
+                                foreach (var item in selected.GetComponentsInParent<Part>())
+                                {
+                                    Player.money += item.cost;
+                                }
+                            }
+
                             Destroy(selected.gameObject);
                         }
                     }
@@ -42,6 +50,11 @@ public class TouchManager : MonoBehaviour
                     {
                         if (FindObjectOfType<TurretHandle>().mainRocket.gameObject != selected.gameObject)
                         {
+                            foreach (var item in selected.GetComponentsInParent<Part>())
+                            {
+                                Player.money += item.cost;
+                            }
+
                             Destroy(selected.gameObject);
                         }
                     }
