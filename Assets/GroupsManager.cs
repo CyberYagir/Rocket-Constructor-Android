@@ -14,7 +14,7 @@ public class GroupsManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-        miniHolder.gameObject.SetActive(UIManager.simulate);
+        miniHolder.parent.parent.gameObject.SetActive(UIManager.simulate);
     }
 
     public void EndEdit()
@@ -54,7 +54,7 @@ public class GroupsManager : MonoBehaviour
                 n.GetComponent<PhysicRocketPart>().Detach();
             }
         }
-        groups.Remove(group);
+        group.detach = true;
         UpdateList();
     }
 
@@ -115,18 +115,25 @@ public class GroupsManager : MonoBehaviour
 
         for (int i = 0; i < groups.Count; i++)
         {
-            var it = Instantiate(item.gameObject, holder).GetComponent<GroupItem>();
-            it.text.text = "Group: " + i;
-            it.group = groups[i];
-            it.DrawItems();
-            it.gameObject.SetActive(true);
+            if (!UIManager.simulate)
+            {
+                groups[i].detach = false;
+            }
+            if (!groups[i].detach)
+            {
+                var it = Instantiate(item.gameObject, holder).GetComponent<GroupItem>();
+                it.text.text = "Group: " + i;
+                it.group = groups[i];
+                it.DrawItems();
+                it.gameObject.SetActive(true);
 
 
-            var itm = Instantiate(miniItem.gameObject, miniHolder).GetComponent<GroupMiniItem>();
-            itm.name = "Group: " + i;
-            itm.text.text = "Group: " + i;
-            itm.group = groups[i];
-            itm.gameObject.SetActive(true);
+                var itm = Instantiate(miniItem.gameObject, miniHolder).GetComponent<GroupMiniItem>();
+                itm.name = "Group: " + i;
+                itm.text.text = "Group: " + i;
+                itm.group = groups[i];
+                itm.gameObject.SetActive(true);
+            }
         }
     }
 }

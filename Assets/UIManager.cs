@@ -81,6 +81,7 @@ public class UIManager : MonoBehaviour
         turret.SetActive(true);
         controls.SetActive(false);
         infoText.transform.parent.gameObject.SetActive(false);
+        FindObjectOfType<GroupsManager>().UpdateList();
     }
     public void StartSimulation()
     {
@@ -103,7 +104,10 @@ public class UIManager : MonoBehaviour
         turret.gameObject.SetActive(false);
 
         var p = FindObjectOfType<Rocket>();
-        p.parts = new List<Transform>(); 
+        p.parts = new List<Transform>();
+
+        FindObjectOfType<GroupsManager>().UpdateList();
+
         foreach (var item in simRocket.GetComponentsInChildren<PartBuilder>())
         {
             item.GetComponent<Part>().randomName = false;

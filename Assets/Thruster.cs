@@ -55,6 +55,7 @@ public class Thruster : Part
                 }
                 else
                 {
+                    run = false;
                     GetComponent<SpriteRenderer>().sprite = hidedTruster;
                 }
             }
