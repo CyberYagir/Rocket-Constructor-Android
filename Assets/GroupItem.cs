@@ -23,28 +23,15 @@ public class GroupItem : MonoBehaviour
     }
     public void Active()
     {
-        for (int i = 0; i < group.parts.Count; i++)
-        {
-            var n = FindObjectsOfType<Part>().ToList().Find(x => x.partFullName == group.parts[i].partFullName);
-            if (n != null)
-            {
-                if (n.gameObject.GetComponent<Thruster>())
-                {
-                    n.gameObject.GetComponent<Thruster>().run = !n.gameObject.GetComponent<Thruster>().run;
-                }
-            }
-        }
+        var n = FindObjectOfType<GroupsManager>();
+        n.group = group;
+        n.Active();
     }
     public void Detach()
     {
-        for (int i = 0; i < group.parts.Count; i++)
-        {
-            var n = FindObjectsOfType<Part>().ToList().Find(x => x.partFullName == group.parts[i].partFullName);
-            if (n != null)
-            {
-                n.GetComponent<PhysicRocketPart>().Detach();
-            }
-        }
+        var n = FindObjectOfType<GroupsManager>();
+        n.group = group;
+        n.Detach();
     }
     private void Update()
     {

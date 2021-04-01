@@ -49,6 +49,20 @@ public class Rocket : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                for (int i = 0; i < parts.Count; i++)
+                {
+                    if (parts[i] != null)
+                    {
+                        parts[i].GetComponent<Rigidbody2D>().gravityScale = 0;
+                        parts[i].GetComponent<Rigidbody2D>().drag = 0;
+                        parts[i].GetComponent<Rigidbody2D>().angularDrag = 0;
+
+                    }
+                }
+
+            }
         }
     }
 

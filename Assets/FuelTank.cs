@@ -24,7 +24,7 @@ public class FuelTank : Part
         else
         {
             indic.transform.localScale = new Vector3((fuel / maxFuel), 1, 1);
-            GetComponent<Rigidbody2D>().mass = ((fuel / maxFuel)) + 0.2f;
+            GetComponent<Rigidbody2D>().mass = ((fuel / maxFuel)) + 0.5f;
         }
     }
 }

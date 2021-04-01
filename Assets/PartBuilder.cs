@@ -107,7 +107,7 @@ public class PartBuilder : MonoBehaviour
                             id = i;
                         }
                     }
-                    if (id != -1 && min < 0.55f)
+                    if (id != -1 && min < 0.3f)
                     {
                         var f = connectPoints.Find(x => x.connectPin == pins[id].transform && x.objectPin == points[j].transform);
 

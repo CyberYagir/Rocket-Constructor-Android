@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GroupsManager : MonoBehaviour
@@ -8,6 +9,13 @@ public class GroupsManager : MonoBehaviour
     public GameObject canvas, endCanvas;
     public bool select;
     public Group group;
+
+    public Transform miniHolder, miniItem;
+
+    public void FixedUpdate()
+    {
+        miniHolder.gameObject.SetActive(UIManager.simulate);
+    }
 
     public void EndEdit()
     {
@@ -21,6 +29,35 @@ public class GroupsManager : MonoBehaviour
         endCanvas.SetActive(false);
         UpdateList();
     }
+
+    public void Active()
+    {
+        for (int i = 0; i < group.parts.Count; i++)
+        {
+            var n = FindObjectsOfType<Part>().ToList().Find(x => x.partFullName == group.parts[i].partFullName);
+            if (n != null)
+            {
+                if (n.gameObject.GetComponent<Thruster>())
+                {
+                    n.gameObject.GetComponent<Thruster>().run = !n.gameObject.GetComponent<Thruster>().run;
+                }
+            }
+        }
+    }
+    public void Detach()
+    {
+        for (int i = 0; i < group.parts.Count; i++)
+        {
+            var n = FindObjectsOfType<Part>().ToList().Find(x => x.partFullName == group.parts[i].partFullName);
+            if (n != null)
+            {
+                n.GetComponent<PhysicRocketPart>().Detach();
+            }
+        }
+        groups.Remove(group);
+        UpdateList();
+    }
+
     public void SelectParts()
     {
         if (!UIManager.simulate)
@@ -71,6 +108,10 @@ public class GroupsManager : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
+        foreach (Transform item in miniHolder)
+        {
+            Destroy(item.gameObject);
+        }
 
         for (int i = 0; i < groups.Count; i++)
         {
@@ -79,6 +120,13 @@ public class GroupsManager : MonoBehaviour
             it.group = groups[i];
             it.DrawItems();
             it.gameObject.SetActive(true);
+
+
+            var itm = Instantiate(miniItem.gameObject, miniHolder).GetComponent<GroupMiniItem>();
+            itm.name = "Group: " + i;
+            itm.text.text = "Group: " + i;
+            itm.group = groups[i];
+            itm.gameObject.SetActive(true);
         }
     }
 }
