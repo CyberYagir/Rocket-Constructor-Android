@@ -42,6 +42,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Fon
+    uniqueID: 3057119231
+    locked: 0
+  - name: Back
+    uniqueID: 1165166749
+    locked: 0
+  - name: Planets
+    uniqueID: 2650430357
+    locked: 0
+  - name: Player
+    uniqueID: 286130207
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

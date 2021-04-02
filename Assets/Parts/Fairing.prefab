@@ -167,8 +167,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 286130207
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 3854670643217274881, guid: 57111ec533d15344da9280668ed5d61a,
     type: 3}
@@ -196,10 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - {fileID: 7989024133397977523}
-  pin: {fileID: 0}
-  point: {fileID: 0}
-  pinned: []
-  connectPoint: []
+  connectPoints: []
 --- !u!61 &7989024133651506403
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -243,3 +240,4 @@ MonoBehaviour:
   mass: 0.2
   mode: 0
   randomName: 1
+  cost: 0
