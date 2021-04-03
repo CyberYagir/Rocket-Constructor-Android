@@ -48,6 +48,7 @@ public class PhysicRocketPart : MonoBehaviour
                     jointConnectors[i].obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)) * 50f, ForceMode2D.Impulse);
                 Destroy(jointConnectors[i].hingeJoint);
             }
+            Player.money -= GetComponent<Part>().cost;
             Destroy(gameObject);
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Animator shop, groups;
+    public Animator shop, groups, tenders;
     public GameObject turret;
     public List<GameObject> allParts;
     public GameObject rocket;
@@ -29,6 +29,19 @@ public class UIManager : MonoBehaviour
     {
         shop.Play("Hide");
     }
+    public void ShowTenders()
+    {
+        TouchManager.touchManager.enabled = false;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(groups.GetComponent<RectTransform>());
+        tenders.Play("Show");
+    }
+
+    public void HideTenders()
+    {
+        TouchManager.touchManager.enabled = true;
+        tenders.Play("Hide");
+    }
+
 
     public void ShowGroups()
     {
