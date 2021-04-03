@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TenderItem : MonoBehaviour
+public class TenderItem : MonoBehaviour, IPointerDownHandler
 {
     public Image image;
     public TMP_Text name_, target, mission, reward, workers;
     public Tender tender;
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        FindObjectOfType<Tenders>().currentTender = tender;
+    }
 
     private void Start()
     {

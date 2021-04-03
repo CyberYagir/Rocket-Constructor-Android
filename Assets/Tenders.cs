@@ -22,6 +22,7 @@ public class Tender {
 }
 public class Tenders : MonoBehaviour
 {
+    public Tender currentTender;
     public Planet[] planets;
     public Company[] companies;
     public GameObject[] sattelites;
