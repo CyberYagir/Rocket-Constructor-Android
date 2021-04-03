@@ -715,10 +715,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 913b48e5-4952-41d6-a809-f5af2a4142b8
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: RocketAndroid
+  organizationId: yagir-inc
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
