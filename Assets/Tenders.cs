@@ -39,7 +39,7 @@ public class Tenders : MonoBehaviour
             }
             else
             {
-                var h = Random.Range(6000, 300000);
+                var h = Random.Range(6000, 500000);
                 tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = (int)((h * 100) * Random.value), height = h, type = Tender.Type.Fly});
             }
         }
@@ -55,10 +55,9 @@ public class Tenders : MonoBehaviour
             }
             else
             {
-                var h = Random.Range(6000, 300000);
+                var h = Random.Range(6000, 500000);
                 tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = (int)((h * 100) * Random.value), height = h, type = Tender.Type.Fly });
             }
-
         }
         UpdateList();
     }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5354397822995173353}
   - component: {fileID: 5354397822995173354}
   - component: {fileID: -8423175289875629479}
+  - component: {fileID: 1967492225743906882}
   m_Layer: 0
   m_Name: Cargo
   m_TagString: Untagged
@@ -151,6 +152,19 @@ MonoBehaviour:
   mode: 0
   randomName: 1
   cost: 0
+--- !u!114 &1967492225743906882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5354397822995173357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36246dc379fa8644292a8dd97b8f8492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  on: 0
 --- !u!1 &5354397823245169339
 GameObject:
   m_ObjectHideFlags: 0

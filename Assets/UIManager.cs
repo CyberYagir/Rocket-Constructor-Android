@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     public List<GameObject> allParts;
     public GameObject rocket;
     public GameObject simRocket;
-    public GameObject shopB, startB, stopB;
+    public GameObject shopB, startB, stopB, tenderB;
     public static UIManager manager;
     public static bool simulate;
     public TMP_Text infoText, money;
@@ -74,6 +74,10 @@ public class UIManager : MonoBehaviour
                    + $"Velocity: {rb.velocity.x.ToString("000")} - {rb.velocity.y.ToString("000")} km." + "\n"
                    + $"Mass: {mass.ToString("0000.00")} t.";
             }
+        }
+        else
+        {
+            tenderB.SetActive(true);
         }
     }
 
