@@ -94,24 +94,6 @@ public class PhysicRocketPart : MonoBehaviour
 
 
             }
-
-            //var toConnect = builder.connectPins[i].parent.GetComponent<Rigidbody2D>();
-            //print(toConnect.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == trs.GetComponent<Rigidbody2D>()));
-            //if (toConnect.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == trs.GetComponent<Rigidbody2D>()) == null)
-            //{
-
-            //    var joint = trs.gameObject.AddComponent<FixedJoint2D>();
-            //    //joint.useLimits = true;
-            //    //joint.limits = new JointAngleLimits2D() { min = 0, max = 0 };
-            //    joint.connectedBody = toConnect.GetComponent<Rigidbody2D>();
-            //    toConnect.mass = toConnect.GetComponent<Part>().mass;
-            //    builder.GetComponent<Rigidbody2D>().mass = builder.GetComponent<Part>().mass;
-
-            //    var conn = new JointConnector() { obj = toConnect, hingeJoint = joint };
-            //    trs.GetComponent<PhysicRocketPart>().jointConnectors.Add(conn);
-            //    toConnect.transform.parent = null;
-            //    ConnectAllChilds(toConnect.transform);
-            //}
         }
     }
 }

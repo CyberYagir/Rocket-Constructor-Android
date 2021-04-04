@@ -19,10 +19,11 @@ public class Tender {
     public int height;
     [TextArea]
     public string text;
+    public bool ended;
 }
 public class Tenders : MonoBehaviour
 {
-    public Tender currentTender;
+    public static Tender currentTender;
     public Planet[] planets;
     public Company[] companies;
     public GameObject[] sattelites;

@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 4401859155294087022}
   - component: {fileID: 4401859155294087009}
   - component: {fileID: 3239620622640863752}
+  - component: {fileID: 9166603389543203384}
   m_Layer: 0
   m_Name: Sattelite2
   m_TagString: Untagged
@@ -542,3 +543,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9166603389543203384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401859155294087021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce6dfbf1ffc7f044a0181f581f5fda5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
