@@ -55,6 +55,13 @@ public class PhysicRocketPart : MonoBehaviour
 
     public void Detach()
     {
+        GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(Random.Range(-2, 2), Random.Range(-0.1f, -2)), ForceMode2D.Impulse);
+        GetComponent<Rigidbody2D>().AddTorque(1, ForceMode2D.Impulse);
+        if (GetComponent<Thruster>())
+        {
+            GetComponent<Thruster>().run = false;
+        }
+
         if (parent != null)
         {
             var parentjoint = parent.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == GetComponent<Rigidbody2D>());

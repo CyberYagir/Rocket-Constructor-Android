@@ -315,8 +315,8 @@ MonoBehaviour:
   mode: 0
   randomName: 1
   cost: 0
-  fuel: 300
-  maxFuel: 300
+  fuel: 450
+  maxFuel: 450
   init: 0
   indic: {fileID: 2428582687103419264}
 --- !u!1 &5354397823245169339

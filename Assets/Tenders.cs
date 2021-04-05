@@ -62,7 +62,19 @@ public class Tenders : MonoBehaviour
         }
         UpdateList();
     }
-
+    private void Update()
+    {
+        if (currentTender != null)
+        {
+            if (currentTender.type == Tender.Type.Fly)
+            {
+                if (Camera.main.transform.position.y >= currentTender.height)
+                {
+                    currentTender.ended = true;
+                }
+            }
+        }
+    }
     public void UpdateList(){
         foreach (Transform item in holder)
         {

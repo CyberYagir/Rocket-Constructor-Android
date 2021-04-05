@@ -49,17 +49,25 @@ public class GroupItem : MonoBehaviour
         }
         for (int i = 0; i < group.parts.Count; i++)
         {
-            var it = Instantiate(subitem.gameObject, subholder);
-            it.GetComponentInChildren<Image>().sprite = group.parts[i].GetComponent<SpriteRenderer>().sprite;
-            var t = it.transform.GetChild(1).GetComponent<TMP_Text>();
-            t.text = group.parts[i].partName;
-            var thruster = group.parts[i].GetComponent<Thruster>();
-            var fuel = group.parts[i].GetComponent<FuelTank>();
-            it.transform.GetChild(2).GetComponent<TMP_Text>().text = "";
-            it.transform.GetChild(2).GetComponent<TMP_Text>().text += (thruster != null ? "Mode: " + thruster.mode + "\n" : "");
-            it.transform.GetChild(2).GetComponent<TMP_Text>().text += (fuel != null ? "Fuel: " + fuel.fuel + "/" + fuel.maxFuel + "\n" : "");
-
-            it.SetActive(true);
+            if (group.parts[i] != null)
+            {
+                var it = Instantiate(subitem.gameObject, subholder);
+                it.GetComponentInChildren<Image>().sprite = group.parts[i].GetComponent<SpriteRenderer>().sprite;
+                var t = it.transform.GetChild(1).GetComponent<TMP_Text>();
+                t.text = group.parts[i].partName;
+                var thruster = group.parts[i].GetComponent<Thruster>();
+                var fuel = group.parts[i].GetComponent<FuelTank>();
+                it.transform.GetChild(2).GetComponent<TMP_Text>().text = "";
+                it.transform.GetChild(2).GetComponent<TMP_Text>().text += (thruster != null ? "Mode: " + thruster.mode + "\n" : "");
+                it.transform.GetChild(2).GetComponent<TMP_Text>().text += (fuel != null ? "Fuel: " + fuel.fuel + "/" + fuel.maxFuel + "\n" : "");
+                it.SetActive(true);
+            }
+            else
+            {
+                group.parts.RemoveAt(i);
+                DrawItems();
+                return;
+            }
         }
     }
 }

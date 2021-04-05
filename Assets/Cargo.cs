@@ -5,35 +5,31 @@ using UnityEngine.EventSystems;
 
 public class Cargo : MonoBehaviour 
 {   
-    public bool on;
-    private void OnMouseDown()
+    public bool drop = false;
+    public void Spawn()
     {
-        print("down");
-        on = true;
-    }
-    private void OnMouseExit()
-    {
-        on = false;
-
-    }
-    private void Update()
-    {
-        if (Input.touchCount == 1 && on)
+        if (drop) return;
+        if (UIManager.simulate)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            if (Tenders.currentTender != null)
             {
-                if (UIManager.simulate)
+                if (Tenders.currentTender.type == Tender.Type.Deliver)
                 {
-                    if (Tenders.currentTender != null)
+                    var sat = Instantiate(Tenders.currentTender.prefab, transform.position, transform.rotation);
+                    if (Tenders.currentTender.planet.spriteRenderer.enabled)
                     {
-                        if (Tenders.currentTender.type == Tender.Type.Deliver)
-                        {
-                            var sat = Instantiate(Tenders.currentTender.prefab, transform.position, transform.rotation);
-                            sat.GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
-                        }
+                        sat.GetComponent<Sattelite>().moveToPlanet = true;
+                        sat.GetComponent<Sattelite>().planet = Tenders.currentTender.planet.transform;
+                        sat.GetComponent<Rigidbody2D>().isKinematic = true;
+                        sat.GetComponent<Collider2D>().enabled = false;
+                        sat.transform.parent = Camera.main.transform;
                     }
+                    else
+                    {
+                        sat.GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+                    }
+                    drop = true;
                 }
-                on = false;
             }
         }
     }

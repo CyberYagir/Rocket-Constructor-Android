@@ -60,6 +60,7 @@ public class UIManager : MonoBehaviour
         money.text = Player.money.ToString();
         if (simulate)
         {
+            tenderB.SetActive(false);
             if (simRocket != null)
             {
                 float mass = 0;

@@ -17,14 +17,26 @@ public class TouchManager : MonoBehaviour
 
     void Update()
     {
-        if (selected != null)
+        if (selected != null && !UIManager.simulate)
         {
             selected.parent = null;
             var sel = selected.GetComponent<PartBuilder>();
             if (Input.touchCount >= 1)
             {
                 selected.position = Vector2.Lerp((Vector2)selected.position, (Vector2)Camera.main.ScreenToWorldPoint(Input.touches[0].position), magnetSpeed * Time.deltaTime);
-
+                
+                float mass = 0;
+                float fuel = 0;
+                foreach (var item in selected.GetComponentsInChildren<Part>())
+                {
+                    mass += item.mass;
+                    if (item is FuelTank)
+                    {
+                        fuel += ((FuelTank)item).maxFuel;
+                    }
+                }
+                UIManager.manager.infoText.transform.parent.gameObject.SetActive(true);
+                UIManager.manager.infoText.text = "Selected: " + selected.name + "\nMass:" + mass + $"({selected.GetComponent<Part>().mass.ToString()}) t." + (fuel == 0 ? "" : "\nFuel: " + fuel);
             }
             else
             {
@@ -68,17 +80,25 @@ public class TouchManager : MonoBehaviour
                         PlayerPrefs.DeleteKey("Shop");
                     }
                 }
+
+                UIManager.manager.infoText.transform.parent.gameObject.SetActive(false);
                 selected = null;
 
             }
         }
+       
+
         if (Input.touchCount == 1 && selected == null)
         {
-            var ray = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector3.forward);
-            if (ray.collider != null) {
-                if (ray.transform.tag != "NotDrag" && ray.transform.tag != "Ground")
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                var ray = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector3.forward);
+                if (ray.collider != null)
                 {
-                    selected = ray.transform;
+                    if (ray.transform.tag != "NotDrag" && ray.transform.tag != "Ground")
+                    {
+                        selected = ray.transform;
+                    }
                 }
             }
         }

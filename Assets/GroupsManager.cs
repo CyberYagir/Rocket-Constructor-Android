@@ -41,11 +41,26 @@ public class GroupsManager : MonoBehaviour
                 {
                     n.gameObject.GetComponent<Thruster>().run = !n.gameObject.GetComponent<Thruster>().run;
                 }
+                if (n.gameObject.GetComponent<Cargo>())
+                {
+                    n.gameObject.GetComponent<Cargo>().Spawn();
+                }
             }
         }
     }
     public void Detach()
     {
+        if (group != null)
+        {
+            for (int i = 0; i < group.parts.Count; i++)
+            {
+                var n = FindObjectsOfType<Part>().ToList().Find(x => x.partFullName == group.parts[i].partFullName);
+                if (n != null)
+                {
+                    n.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+            }
+        }
         for (int i = 0; i < group.parts.Count; i++)
         {
             var n = FindObjectsOfType<Part>().ToList().Find(x => x.partFullName == group.parts[i].partFullName);

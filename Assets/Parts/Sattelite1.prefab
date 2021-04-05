@@ -1416,6 +1416,7 @@ GameObject:
   - component: {fileID: 7916522533210696078}
   - component: {fileID: 8952831781891282151}
   - component: {fileID: -6195625922132153292}
+  - component: {fileID: -4127645974212712584}
   m_Layer: 0
   m_Name: Sattelite1
   m_TagString: Untagged
@@ -1554,6 +1555,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce6dfbf1ffc7f044a0181f581f5fda5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &-4127645974212712584
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7916522533210696066}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 3
+  m_AngularDrag: 3
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7916522533279266815
 GameObject:
   m_ObjectHideFlags: 0

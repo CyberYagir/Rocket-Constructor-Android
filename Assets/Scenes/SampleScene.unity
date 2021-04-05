@@ -3483,7 +3483,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 13.23
+  orthographic size: 12
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -9375,6 +9375,7 @@ MonoBehaviour:
     type: 0
     height: 0
     text: 
+    ended: 0
   sel: 0
 --- !u!1 &1464632141
 GameObject:
@@ -11986,17 +11987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ccbf3a3074ac3479110509c76b42fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTender:
-    company:
-      name: 
-      peoples: 0
-      icon: {fileID: 0}
-    money: 0
-    prefab: {fileID: 0}
-    planet: {fileID: 0}
-    type: 0
-    height: 0
-    text: 
   planets:
   - {fileID: 1465129472}
   companies:
@@ -12289,7 +12279,7 @@ GameObject:
   - component: {fileID: 1816999524}
   - component: {fileID: 1816999523}
   m_Layer: 5
-  m_Name: Image
+  m_Name: SimulationInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

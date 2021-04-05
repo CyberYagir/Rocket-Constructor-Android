@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partName: Cargo
   partFullName: 
-  mass: 3
+  mass: 1.8
   mode: 0
   randomName: 1
   cost: 0

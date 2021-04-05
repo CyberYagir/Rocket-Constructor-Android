@@ -5,7 +5,7 @@ using UnityEngine.Advertisements;
 
 public class Player : MonoBehaviour
 {
-    public static float money = 1000000;
+    public static float money = 2000000;
 
     public static string companyName = "NoName";
 
