@@ -6,12 +6,14 @@ using UnityEngine.Advertisements;
 public class Player : MonoBehaviour
 {
     public static float money = 2000000;
+    
+    public float money_ = 2000000;
 
     public static string companyName = "NoName";
 
     void Start(){
         Advertisement.Initialize("4074573", false);
-
+        money = PlayerPrefs.GetInt("Money", 2000000);
     }
     
     public void ShowInterstitialAd() {
@@ -23,7 +25,14 @@ public class Player : MonoBehaviour
             Debug.Log("Interstitial ad not ready at the moment! Please try again later!");
         }
     }
-
+    private void Update()
+    {
+        if (money != money_)
+        {
+            PlayerPrefs.SetFloat("Money", money);
+            money_ = money;
+        }
+    }
     private void HandleShowResult(ShowResult result)
     {
         switch (result)

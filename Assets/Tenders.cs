@@ -30,19 +30,12 @@ public class Tenders : MonoBehaviour
     public List<Tender> tenders;
     [Space]
     public Transform holder, item;
+    public Animator UIEndWorndow; 
+
     void Start(){
         for (int i = 0; i < planets.Length; i++)
         {
-            var t = (Tender.Type)Random.Range(0, 2);
-            if (t == Tender.Type.Deliver)
-            {
-                tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = ((int)planets[i].minY * 100) + (int)(1000000 * Random.value), prefab = sattelites[Random.Range(0, sattelites.Length)], planet = planets[Random.Range(0, planets.Length)], type = Tender.Type.Deliver});
-            }
-            else
-            {
-                var h = Random.Range(6000, 500000);
-                tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = (int)((h * 100) * Random.value), height = h, type = Tender.Type.Fly});
-            }
+            tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = ((int)planets[i].minY * 10) + (int)(1000000 * Random.value), prefab = sattelites[Random.Range(0, sattelites.Length)], planet = planets[i], type = Tender.Type.Deliver });
         }
 
         for (int i = 0; i < Random.Range(5,10); i++)
@@ -52,12 +45,12 @@ public class Tenders : MonoBehaviour
             if (t == Tender.Type.Deliver)
             {
                 var pl = planets[Random.Range(0, planets.Length)];
-                tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = ((int)pl.minY * 100) + (int)(1000000f * Random.value), prefab = sattelites[Random.Range(0, sattelites.Length)], planet = pl, type = Tender.Type.Deliver });
+                tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = ((int)pl.minY * 10) + (int)(1000000f * Random.value), prefab = sattelites[Random.Range(0, sattelites.Length)], planet = pl, type = Tender.Type.Deliver });
             }
             else
             {
                 var h = Random.Range(6000, 500000);
-                tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = (int)((h * 100) * Random.value), height = h, type = Tender.Type.Fly });
+                tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = (int)((h * 10) * Random.value), height = h, type = Tender.Type.Fly });
             }
         }
         UpdateList();
@@ -73,9 +66,25 @@ public class Tenders : MonoBehaviour
                     currentTender.ended = true;
                 }
             }
+            if (currentTender.ended) {
+                UIEndWorndow.Play("Show");
+            }
+
         }
     }
+
+    public void EndTender()
+    {
+        currentTender.ended = false;
+        Player.money += currentTender.money;
+        tenders.Remove(currentTender);
+        currentTender = null;
+        UIEndWorndow.Play("Hide");
+        UIManager.manager.StopSimulation();
+    }
+
     public void UpdateList(){
+        print("UpdateList");
         foreach (Transform item in holder)
         {
             Destroy(item.gameObject);   
@@ -83,10 +92,27 @@ public class Tenders : MonoBehaviour
 
         for (int i = 0; i < tenders.Count; i++)
         {
-            var it = Instantiate(item, holder).GetComponent<TenderItem>();
-            it.tender = tenders[i];
-            it.gameObject.SetActive(true);
+            if (!UIManager.simulate)
+            {
+                var it = Instantiate(item, holder).GetComponent<TenderItem>();
+                it.tender = tenders[i];
+                it.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (currentTender != null)
+                {
+                    if (currentTender == tenders[i])
+                    {
+                        var it = Instantiate(item, holder).GetComponent<TenderItem>();
+                        it.tender = tenders[i];
+                        it.gameObject.SetActive(true);
+                    }
+                }
+            }
         }
     }
+
+    
 
 }

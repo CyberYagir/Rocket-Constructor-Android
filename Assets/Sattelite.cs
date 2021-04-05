@@ -36,6 +36,13 @@ public class Sattelite : MonoBehaviour
         else
         {
             transform.position = Vector2.MoveTowards(transform.position, planet.transform.position, 2 * Time.deltaTime);
+            if (transform.localScale.x > 0)
+                transform.localScale -= Vector3.one * Time.deltaTime;
+            if (transform.localScale.x < 0)
+            {
+                Tenders.currentTender.ended = true;
+                transform.localScale = Vector3.zero;
+            }
         }
     }
 }

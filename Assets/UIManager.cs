@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     }
     public void ShowTenders()
     {
+        FindObjectOfType<Tenders>().UpdateList();
         TouchManager.touchManager.enabled = false;
         LayoutRebuilder.ForceRebuildLayoutImmediate(groups.GetComponent<RectTransform>());
         tenders.Play("Show");
@@ -38,6 +39,7 @@ public class UIManager : MonoBehaviour
 
     public void HideTenders()
     {
+        FindObjectOfType<Tenders>().UpdateList();
         TouchManager.touchManager.enabled = true;
         tenders.Play("Hide");
     }
@@ -60,7 +62,6 @@ public class UIManager : MonoBehaviour
         money.text = Player.money.ToString();
         if (simulate)
         {
-            tenderB.SetActive(false);
             if (simRocket != null)
             {
                 float mass = 0;
@@ -75,10 +76,6 @@ public class UIManager : MonoBehaviour
                    + $"Velocity: {rb.velocity.x.ToString("000")} - {rb.velocity.y.ToString("000")} km." + "\n"
                    + $"Mass: {mass.ToString("0000.00")} t.";
             }
-        }
-        else
-        {
-            tenderB.SetActive(true);
         }
     }
 

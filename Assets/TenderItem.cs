@@ -14,6 +14,8 @@ public class TenderItem : MonoBehaviour, IPointerDownHandler
     public bool sel;
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (UIManager.simulate) return;
+        if (Tenders.currentTender == tender) return;
         Tenders.currentTender = tender;
         GetComponent<Image>().color = new Color(0.2260591f, 0.3773585f, 0.2501912f, 0.8078431f);
         var m = FindObjectsOfType<TenderItem>().ToList().Find(x => x.sel);
@@ -41,5 +43,11 @@ public class TenderItem : MonoBehaviour, IPointerDownHandler
         mission.text = "Mission: " + tender.type.ToString();
         reward.text = "Reward: " + tender.money;
         workers.text = "Workers\n " + tender.company.peoples;
+        if (Tenders.currentTender == tender)
+        {
+            GetComponent<Image>().color = new Color(0.2260591f, 0.3773585f, 0.2501912f, 0.8078431f);
+            sel = true;
+        }
+
     }
 }
