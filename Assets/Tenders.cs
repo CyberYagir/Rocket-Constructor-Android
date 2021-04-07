@@ -73,14 +73,15 @@ public class Tenders : MonoBehaviour
         }
     }
 
-    public void EndTender()
+    public void EndTender(bool restart)
     {
         currentTender.ended = false;
         Player.money += currentTender.money;
         tenders.Remove(currentTender);
         currentTender = null;
         UIEndWorndow.Play("Hide");
-        UIManager.manager.StopSimulation();
+        if (restart)
+            UIManager.manager.StopSimulation();
     }
 
     public void UpdateList(){

@@ -9,12 +9,13 @@ public class GroupsManager : MonoBehaviour
     public GameObject canvas, endCanvas;
     public bool select;
     public Group group;
-
+    public GameObject addButton;
     public Transform miniHolder, miniItem;
 
     public void FixedUpdate()
     {
         miniHolder.parent.parent.gameObject.SetActive(UIManager.simulate);
+        addButton.SetActive(!UIManager.simulate);
     }
 
     public void EndEdit()

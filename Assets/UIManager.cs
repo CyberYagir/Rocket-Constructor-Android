@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Animator shop, groups, tenders;
+    public Animator shop, groups, tenders, restart, menu;
     public GameObject turret;
     public List<GameObject> allParts;
     public GameObject rocket;
@@ -20,43 +20,35 @@ public class UIManager : MonoBehaviour
     {
         manager = this;
     }
-    public void ShowShop()
+
+    public void Show(Animator anm)
     {
-        shop.Play("Show");
+        anm.Play("Show");
     }
 
-    public void HideShop()
+    public void Hide(Animator anm)
     {
-        shop.Play("Hide");
-    }
-    public void ShowTenders()
-    {
-        FindObjectOfType<Tenders>().UpdateList();
-        TouchManager.touchManager.enabled = false;
-        LayoutRebuilder.ForceRebuildLayoutImmediate(groups.GetComponent<RectTransform>());
-        tenders.Play("Show");
-    }
-
-    public void HideTenders()
-    {
-        FindObjectOfType<Tenders>().UpdateList();
-        TouchManager.touchManager.enabled = true;
-        tenders.Play("Hide");
+        anm.Play("Hide");
     }
 
 
-    public void ShowGroups()
+    public void ShowUnTouch(Animator anm)
     {
         TouchManager.touchManager.enabled = false;
+        FindObjectOfType<Tenders>().UpdateList();
         LayoutRebuilder.ForceRebuildLayoutImmediate(groups.GetComponent<RectTransform>());
-        groups.Play("Show");
+        anm.Play("Show");
     }
-
-    public void HideGroups()
+    public void ToMenu()
+    {
+        Application.LoadLevel(0);
+    }
+    public void HideUnTouch(Animator anm)
     {
         TouchManager.touchManager.enabled = true;
-        groups.Play("Hide");
+        anm.Play("Hide");
     }
+
     private void Update()
     {
         money.text = Player.money.ToString();
