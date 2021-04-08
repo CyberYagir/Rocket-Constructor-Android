@@ -5,6 +5,7 @@ using UnityEngine;
 public class Part : MonoBehaviour
 {
     public string partName;
+    public string partCode;
     public string partFullName;
     public float mass;
     public bool mode = false;
@@ -14,7 +15,8 @@ public class Part : MonoBehaviour
     {
         if (randomName)
         {
-            transform.name = partName + ": " + Random.Range(0, 100000).ToString("000000");
+            partCode = Random.Range(0, 100000).ToString("000000");
+            transform.name = partName + ": " + partCode;
             partFullName = transform.name;
         }
     }

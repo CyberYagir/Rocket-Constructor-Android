@@ -84,23 +84,21 @@ public class PhysicRocketPart : MonoBehaviour
     public void ConnectAllChilds()
     {
         var builder = GetComponent<PartBuilder>();
-        transform.parent = null;
         GetComponent<Rigidbody2D>().mass = GetComponent<Part>().mass;
 
         for (int i = 0; i < builder.connectPoints.Count; i++)
         {
             var connected = builder.connectPoints[i].connectPin.parent;
             var connectedJoints = connected.GetComponents<HingeJoint2D>().ToList();
-            if (connectedJoints.Find(x=>x.connectedBody == GetComponent<Rigidbody2D>()) == null)
+            if (connectedJoints.Find(x => x.connectedBody == GetComponent<Rigidbody2D>()) == null)
             {
                 var joint = gameObject.AddComponent<FixedJoint2D>();
                 joint.connectedBody = connected.GetComponent<Rigidbody2D>();
 
                 var conn = new JointConnector() { obj = connected.GetComponent<Rigidbody2D>(), hingeJoint = joint };
                 jointConnectors.Add(conn);
-
-
             }
         }
+        transform.parent = null;
     }
 }
