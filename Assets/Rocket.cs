@@ -4,7 +4,6 @@ using UnityEngine;
 [System.Serializable]
 public class Group
 {
-    public string name;
     public List<Part> parts = new List<Part>();
     public bool detach;
 }

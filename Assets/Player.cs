@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
 
     void Start(){
         Advertisement.Initialize("4074573", false);
-        money = PlayerPrefs.GetInt("Money", 2000000);
     }
     
     public void ShowInterstitialAd() {
@@ -27,11 +26,6 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        if (money != money_)
-        {
-            PlayerPrefs.SetFloat("Money", money);
-            money_ = money;
-        }
     }
     private void HandleShowResult(ShowResult result)
     {

@@ -19,5 +19,10 @@ public class Part : MonoBehaviour
             transform.name = partName + ": " + partCode;
             partFullName = transform.name;
         }
+        else
+        {
+            transform.name = partName + ": " + partCode;
+            partFullName = transform.name;
+        }
     }
 }

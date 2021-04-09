@@ -12,45 +12,66 @@ public class SaveLoad : MonoBehaviour
 {
     public string filePath;
     public string worldname;
-
+    public int parentID;
+    public List<PartBuilder> partBuilders;
+    public List<Part> parts;
+    public List<PartRocket> partsRockets;
+    public List<Connections> conns = new List<Connections>();
     private void Start()
     {
         filePath = Application.persistentDataPath;
     }
+
+    public void SetID(PartBuilder part, World world)
+    {
+        print(part.gameObject.name + ": " + parentID);
+        conns = new List<Connections>();
+        foreach (var it in part.connectPoints)
+        {
+            conns.Add(new Connections() { connectedObjectCode = it.connectPin.parent.GetComponent<Part>().partCode.ToString(), type = it.objectPin.GetComponent<PinType>().type });
+        }
+        world.parts.Add(new PartRocket()
+        {
+            id = parentID,
+            pos = Vector2C.from(part.transform.position),
+            partName = part.GetComponent<Part>().partName,
+            uniq = part.GetComponent<Part>().partCode,
+            connectedUniqs = conns
+
+        });
+        parentID++;
+        partBuilders.Add(part);
+        foreach (var item in part.connectPoints)
+        {
+            if (!partBuilders.Contains(item.connectPin.parent.GetComponent<PartBuilder>()))
+                SetID(item.connectPin.parent.GetComponent<PartBuilder>(), world);
+        }
+    }
+
     public void Save()
     {
 
         var world = new World();
 
-        var conns = new List<Connections>(); 
         var mainPart = UIManager.manager.turret.GetComponent<TurretHandle>().mainRocket.GetComponent<Part>();
 
-        foreach (var it in mainPart.GetComponent<PartBuilder>().connectPoints)
-        {
-            conns.Add(new Connections() { connectedObjectCode = it.connectPin.parent.GetComponent<Part>().partCode.ToString(), type = it.connectPin.GetComponent<PinType>().type});
-        }
-        
         world.mainPart = (new PartRocket() { partName = mainPart.partName, pos = Vector2C.from(mainPart.transform.position), uniq = mainPart.partCode, connectedUniqs = conns});
-        foreach (var item in FindObjectsOfType<Part>())
-        {
-            if (mainPart != item)
-            {
-                conns = new List<Connections>();
-                foreach (var it in item.GetComponent<PartBuilder>().connectPoints)
-                {
-                    conns.Add(new Connections() { connectedObjectCode = it.connectPin.parent.GetComponent<Part>().partCode.ToString(), type = it.connectPin.GetComponent<PinType>().type });
-                }
-                world.parts.Add(
+        
+        partBuilders = new List<PartBuilder>();
+        SetID(mainPart.GetComponent<PartBuilder>(), world);
 
-                    new PartRocket()
-                    {
-                        partName = item.partName,
-                        pos = Vector2C.from((Vector2)item.transform.position),
-                        uniq = item.partCode,
-                        connectedUniqs = conns
-                    });
+        foreach (var item in FindObjectOfType<GroupsManager>().groups)
+        {
+            var codes = new List<string>(); 
+            for (int i = 0; i < item.parts.Count; i++)
+            {
+                codes.Add(item.parts[i].partCode);
             }
+            world.groups.Add(new Group() { parts = codes });
         }
+
+
+
         BinaryFormatter formatter = new BinaryFormatter();
         using (FileStream fs = new FileStream($"{filePath}/{worldname}.yWorld", FileMode.OpenOrCreate))
         {
@@ -72,29 +93,51 @@ public class SaveLoad : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
-        var prefabs = Resources.FindObjectsOfTypeAll<Part>();
 
-        var mainPart = (GameObject)Instantiate(Resources.Load("Parts/" + world.mainPart.partName), world.mainPart.pos.to(), Quaternion.identity);
-        mainPart.GetComponent<Part>().randomName = false;
-        mainPart.GetComponent<Part>().partCode = world.mainPart.uniq;
-        mainPart.GetComponent<PartBuilder>().FindConnections(world.mainPart.connectedUniqs);
 
-        UIManager.manager.turret.GetComponent<TurretHandle>().mainRocket = mainPart.GetComponent<Part>();
+        world.parts = world.parts.OrderBy(x => x.id).ToList();
+        parts = new List<Part>();
         for (int i = 0; i < world.parts.Count; i++)
         {
+            if (i == 0)
+            {
+                var mainPart = (GameObject)Instantiate(Resources.Load("Parts/" + world.parts[i].partName), world.mainPart.pos.to(), Quaternion.identity);
+                mainPart.GetComponent<Part>().randomName = false;
+                mainPart.GetComponent<Part>().partCode = world.mainPart.uniq; 
+                UIManager.manager.turret.GetComponent<TurretHandle>().mainRocket = mainPart.GetComponent<Part>();
+                parts.Add(mainPart.GetComponent<Part>());
+                continue;
+            }
             var n = (GameObject)Instantiate(Resources.Load("Parts/" + world.parts[i].partName), world.parts[i].pos.to(), Quaternion.identity);
             n.GetComponent<Part>().randomName = false;
             n.GetComponent<Part>().partCode = world.parts[i].uniq;
+            parts.Add(n.GetComponent<Part>());
         }
-        foreach (var item in FindObjectsOfType<PartBuilder>())
+        parts.Reverse();
+        foreach (var item in parts)
         {
             var p = world.parts.Find(x => x.uniq == item.GetComponent<Part>().partCode);
             if (p != null)
             {
-                item.FindConnections(p.connectedUniqs);
+                item.GetComponent<PartBuilder>().FindConnections(p.connectedUniqs);
             }
         }
 
+
+        var groupsM = FindObjectOfType<GroupsManager>();
+
+        groupsM.groups = new List<global::Group>();
+
+        for (int i = 0; i < world.groups.Count; i++)
+        {
+            var partsGroup = new List<Part>();
+            for (int j = 0; j < world.groups[i].parts.Count; j++)
+            {
+                partsGroup.Add(parts.Find(x => x.partCode == world.groups[i].parts[j]));
+            }
+            groupsM.groups.Add(new global::Group() { parts = partsGroup, detach = false });
+        }
+        groupsM.UpdateList();
     }
 
     [System.Serializable]
@@ -103,6 +146,7 @@ public class SaveLoad : MonoBehaviour
         public PartRocket mainPart;
         public List<PartRocket> parts = new List<PartRocket>();
 
+        public List<Group> groups = new List<Group>();
     }
 
     [System.Serializable]
@@ -128,6 +172,7 @@ public class SaveLoad : MonoBehaviour
     public class PartRocket
     {
         public string partName, uniq;
+        public int id;
         public List<Connections> connectedUniqs = new List<Connections>();
         public Vector2C pos = new Vector2C(0, 0);
     }
@@ -138,4 +183,10 @@ public class SaveLoad : MonoBehaviour
         public PinType.Type type;
         public string connectedObjectCode;
     }
+
+    [System.Serializable]
+    public class Group {
+        public List<string> parts = new List<string>();
+    }
+
 }

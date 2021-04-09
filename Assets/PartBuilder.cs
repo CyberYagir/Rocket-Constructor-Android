@@ -146,13 +146,46 @@ public class PartBuilder : MonoBehaviour
 
     public void FindConnections(List<SaveLoad.Connections> connects)
     {
-        Unconnect();
+        //Unconnect();
         var parts = FindObjectsOfType<Part>().ToList();
+        print(parts.Count);
         for (int i = 0; i < connects.Count; i++)
         {
-            var connected = parts.ToList().Find(x => x.partCode == connects[i].connectedObjectCode);
-            print(connected.name);
+            var connected = parts.Find(x => x.partCode == connects[i].connectedObjectCode).gameObject;
+            PinType pinType = null;
+            for (int g = 0; g < connected.GetComponent<PartBuilder>().points.Length; g++)
+            {
+                var pin = connected.GetComponent<PartBuilder>().points[g].GetComponent<PinType>();
+
+                if (pin.type == PinType.Type.Down && connects[i].type == PinType.Type.Up)
+                {
+                    pinType = pin;
+                    break;
+                }
+                if (pin.type == PinType.Type.Up && connects[i].type == PinType.Type.Down)
+                {
+                    pinType = pin;
+                    break;
+                }
+                if (pin.type == PinType.Type.Left && connects[i].type == PinType.Type.Right)
+                {
+                    pinType = pin;
+                    break;
+                }
+                if (pin.type == PinType.Type.Right && connects[i].type == PinType.Type.Left)
+                {
+                    pinType = pin;
+                    break;
+                }
+            }
+            print(transform.name + ": " + connects[i].type);
+            if (connectPoints.Find(x => x.connectPin == pinType.transform && x.objectPin == points.ToList().Find(g => g.GetComponent<PinType>().type == connects[i].type)) == null)
+                connectPoints.Insert(0, new ConnectPoints() { connectPin = pinType.transform, objectPin = points.ToList().Find(x => x.GetComponent<PinType>().type == connects[i].type) });
+            
         }
-        Connect();
+        if (connectPoints.Count != 0)
+        {
+            Connect();
+        }
     }
 }

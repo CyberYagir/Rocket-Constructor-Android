@@ -188,8 +188,8 @@ GameObject:
   - component: {fileID: 218504658982894067}
   - component: {fileID: 218504658982894068}
   - component: {fileID: 218504658982894065}
-  - component: {fileID: 218504658982894066}
   - component: {fileID: 8685800475655482672}
+  - component: {fileID: 592974576397023004}
   m_Layer: 0
   m_Name: Thruster
   m_TagString: Untagged
@@ -281,12 +281,40 @@ MonoBehaviour:
   points:
   - {fileID: 218504657871104551}
   - {fileID: 2377133693261316348}
-  pin: {fileID: 0}
-  point: {fileID: 0}
-  pinned: []
-  connectPoint: []
---- !u!61 &218504658982894066
-BoxCollider2D:
+  connectPoints: []
+--- !u!114 &8685800475655482672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218504658982894069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c2e52d76f0c9a24baf9197437b79e52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partName: Thruster
+  partCode: 
+  partFullName: 
+  mass: 0.5
+  mode: 0
+  randomName: 1
+  cost: 0
+  force: 18000
+  sharedForce: 0
+  run: 0
+  fueleat: 5
+  rb: {fileID: 0}
+  fire: {fileID: 7413071691053377416}
+  icon: {fileID: 7247170823389428021}
+  pPart: {fileID: 0}
+  hidedTruster: {fileID: 8602164171127035671, guid: 57111ec533d15344da9280668ed5d61a,
+    type: 3}
+  normalThruster: {fileID: 6658516375458014310, guid: 57111ec533d15344da9280668ed5d61a,
+    type: 3}
+--- !u!60 &592974576397023004
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -308,38 +336,16 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.875, y: 1.25}
-  m_EdgeRadius: 0
---- !u!114 &8685800475655482672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218504658982894069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c2e52d76f0c9a24baf9197437b79e52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partName: Thruster
-  partFullName: 
-  mass: 0.5
-  mode: 0
-  randomName: 1
-  force: 18000
-  sharedForce: 0
-  run: 0
-  fueleat: 5
-  rb: {fileID: 0}
-  fire: {fileID: 7413071691053377416}
-  icon: {fileID: 7247170823389428021}
-  pPart: {fileID: 0}
-  hidedTruster: {fileID: 8602164171127035671, guid: 57111ec533d15344da9280668ed5d61a,
-    type: 3}
-  normalThruster: {fileID: 6658516375458014310, guid: 57111ec533d15344da9280668ed5d61a,
-    type: 3}
+  m_Points:
+    m_Paths:
+    - - {x: -0.4375, y: 0.625}
+      - {x: -0.43875885, y: -0.061798275}
+      - {x: -0.2532637, y: -0.37704968}
+      - {x: -0.25325203, y: -0.62614745}
+      - {x: 0.25503016, y: -0.62153554}
+      - {x: 0.25446272, y: -0.37938213}
+      - {x: 0.4375, y: -0.061798334}
+      - {x: 0.4375, y: 0.625}
 --- !u!1 &7055704228447546791
 GameObject:
   m_ObjectHideFlags: 0

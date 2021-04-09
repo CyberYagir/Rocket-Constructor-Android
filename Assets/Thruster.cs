@@ -48,7 +48,7 @@ public class Thruster : Part
             }
             else
             {
-                if (pPart.jointConnectors[0].hingeJoint == null)
+                if (pPart.jointConnectors.Find(x=>x.obj.transform == pPart.parent).hingeJoint == null)
                 {
                     GetComponent<SpriteRenderer>().sprite = normalThruster;
                 }
