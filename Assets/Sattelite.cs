@@ -19,12 +19,9 @@ public class Sattelite : MonoBehaviour
         {
             if (transform.position.y < 5000f)
             {
-                if (transform.position.y > 20f)
-                {
-                    GetComponent<Rigidbody2D>().gravityScale = ((5000f - transform.position.y) / 5000f);
-                    GetComponent<Rigidbody2D>().drag = ((5000f - transform.position.y) / 5000f) * 3f;
-                    GetComponent<Rigidbody2D>().angularDrag = ((5000f - transform.position.y) / 5000f) * 3f;
-                }
+                GetComponent<Rigidbody2D>().gravityScale = ((5000f - transform.position.y) / 5000f);
+                GetComponent<Rigidbody2D>().drag = ((5000f - transform.position.y) / 5000f) * 3f;
+                GetComponent<Rigidbody2D>().angularDrag = ((5000f - transform.position.y) / 5000f) * 3f;
             }
             else
             {

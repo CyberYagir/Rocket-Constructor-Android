@@ -1122,7 +1122,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45.000004}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 6.51001, y: 0.90999985}
   m_SizeDelta: {x: 61.583397, y: 1.9953003}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1647,9 +1647,7 @@ MonoBehaviour:
     Mass: 1000 t.
 
     Air
-    friction: 100%
-
-    Gravity: 100%'
+    friction: 100%'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c60b442abbef754d997851da7810dee, type: 2}
   m_sharedMaterial: {fileID: -596729987538014888, guid: 0c60b442abbef754d997851da7810dee,
@@ -1678,7 +1676,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 88.9
+  m_fontSize: 93.6
   m_fontSizeBase: 48.5
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1719,12 +1717,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 175284217}
-    characterCount: 93
+    characterCount: 79
     spriteCount: 0
-    spaceCount: 13
-    wordCount: 14
+    spaceCount: 11
+    wordCount: 12
     linkCount: 0
-    lineCount: 5
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -8147,7 +8145,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -16664,7 +16662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1816999522
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16684,7 +16682,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 459.58435}
+  m_SizeDelta: {x: 0, y: 410.8761}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1816999523
 MonoBehaviour:

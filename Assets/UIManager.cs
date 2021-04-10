@@ -68,8 +68,7 @@ public class UIManager : MonoBehaviour
                     $"Altitude: {simRocket.transform.position.y.ToString("000 000")} m." + "\n"
                    + $"Velocity: {rb.velocity.x.ToString("000")} - {rb.velocity.y.ToString("000")} km." + "\n"
                    + $"Mass: {mass.ToString("0000.00")} t.\n"
-                   + $"Air Friction: {((rb.drag/1f) * 100f).ToString("F2")}%\n"
-                   + $"Gravity: {((rb.gravityScale / 1f) * 100f).ToString("F2")}%";
+                   + $"Air Friction/Grav.: {((rb.gravityScale / 1f) * 100f).ToString("F2")}%";
             }
         }
     }
@@ -123,8 +122,8 @@ public class UIManager : MonoBehaviour
             item.GetComponent<Part>().randomName = false;
             var rb = item.gameObject.AddComponent<Rigidbody2D>();
             rb.mass = item.GetComponent<Part>().mass;
-            rb.drag = 1;
-            rb.angularDrag = 1;
+            rb.drag = 3;
+            rb.angularDrag = 3;
             item.gameObject.AddComponent<PhysicRocketPart>();
             p.parts.Add(item.transform);
             item.transform.tag = "NotDrag";
