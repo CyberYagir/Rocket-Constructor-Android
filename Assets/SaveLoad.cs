@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using TMPro;
 using UnityEngine;
-
-
+using UnityEngine.UI;
 
 public class SaveLoad : MonoBehaviour
 {
@@ -17,11 +17,21 @@ public class SaveLoad : MonoBehaviour
     public List<Part> parts;
     public List<PartRocket> partsRockets;
     public List<Connections> conns = new List<Connections>();
+    public TMP_InputField inputField;
     private void Start()
     {
         filePath = Application.persistentDataPath;
     }
-
+    private void Update()
+    {
+        if (PlayerPrefs.HasKey("WorldLoad"))
+        {
+            worldname = PlayerPrefs.GetString("WorldLoad");
+            inputField.text = worldname;
+            Load(false);
+            PlayerPrefs.DeleteKey("WorldLoad");
+        }
+    }
     public void SetID(PartBuilder part, World world)
     {
         print(part.gameObject.name + ": " + parentID);
@@ -50,9 +60,13 @@ public class SaveLoad : MonoBehaviour
 
     public void Save()
     {
+        worldname = inputField.text;
+        if (worldname.Trim() == "") { inputField.placeholder.GetComponent<TMP_Text>().text = "Enter save name!"; return; }
+
 
         var world = new World();
 
+        world.money = Player.money;
         var mainPart = UIManager.manager.turret.GetComponent<TurretHandle>().mainRocket.GetComponent<Part>();
 
         world.mainPart = (new PartRocket() { partName = mainPart.partName, pos = Vector2C.from(mainPart.transform.position), uniq = mainPart.partCode, connectedUniqs = conns});
@@ -79,10 +93,15 @@ public class SaveLoad : MonoBehaviour
         }
     }
 
-    public void Load()
+    public void Load(bool button)
     {
 
+        worldname = inputField.text;
+        if (button)
+            if (worldname.Trim() == "") { inputField.placeholder.GetComponent<TMP_Text>().text = "Enter save name!";  return; }
+        
         var world = new World();
+
 
         BinaryFormatter formatter = new BinaryFormatter();
         using (FileStream fs = new FileStream($"{filePath}/{worldname}.yWorld", FileMode.OpenOrCreate))
@@ -94,7 +113,7 @@ public class SaveLoad : MonoBehaviour
             Destroy(item.gameObject);
         }
 
-
+        Player.money = world.money;
         world.parts = world.parts.OrderBy(x => x.id).ToList();
         parts = new List<Part>();
         for (int i = 0; i < world.parts.Count; i++)
@@ -142,10 +161,9 @@ public class SaveLoad : MonoBehaviour
 
     [System.Serializable]
     public class World{
-        public string name;
+        public float money;
         public PartRocket mainPart;
         public List<PartRocket> parts = new List<PartRocket>();
-
         public List<Group> groups = new List<Group>();
     }
 

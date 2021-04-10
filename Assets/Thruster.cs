@@ -42,21 +42,14 @@ public class Thruster : Part
         else
         {
 
-            if (pPart.jointConnectors.Count <= 1)
+            if (pPart.jointConnectors.Count == 0)
             {
                 GetComponent<SpriteRenderer>().sprite = normalThruster;
             }
             else
             {
-                if (pPart.jointConnectors.Find(x=>x.obj.transform == pPart.parent).hingeJoint == null)
-                {
-                    GetComponent<SpriteRenderer>().sprite = normalThruster;
-                }
-                else
-                {
-                    run = false;
-                    GetComponent<SpriteRenderer>().sprite = hidedTruster;
-                }
+                GetComponent<SpriteRenderer>().sprite = hidedTruster;
+                run = false;
             }
         }
 

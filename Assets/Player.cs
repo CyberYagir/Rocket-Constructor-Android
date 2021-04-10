@@ -16,12 +16,24 @@ public class Player : MonoBehaviour
     }
     
     public void ShowInterstitialAd() {
-        // Check if UnityAds ready before calling Show method:
-        if (Advertisement.IsReady()) {
-            Advertisement.Show("video", new ShowOptions() { resultCallback = HandleShowResult});
-        } 
-        else {
-            Debug.Log("Interstitial ad not ready at the moment! Please try again later!");
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            if (money <= 0)
+            {
+                money += 100000;
+            }
+        }
+        else
+        {
+            // Check if UnityAds ready before calling Show method:
+            if (Advertisement.IsReady())
+            {
+                Advertisement.Show("video", new ShowOptions() { resultCallback = HandleShowResult });
+            }
+            else
+            {
+                Debug.Log("Interstitial ad not ready at the moment! Please try again later!");
+            }
         }
     }
     private void Update()

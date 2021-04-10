@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 [System.Serializable]
 public class Company
@@ -10,9 +11,15 @@ public class Company
 }
 [System.Serializable]
 public class Tender {
+    public int conpanyID;
+    [System.NonSerialized]
     public Company company;
     public int money;
+    public int prefabID;
+    [System.NonSerialized]
     public GameObject prefab;
+    public int planetID;
+    [System.NonSerialized]
     public Planet planet;
     public enum Type {Fly, Deliver };
     public Type type;
@@ -30,7 +37,8 @@ public class Tenders : MonoBehaviour
     public List<Tender> tenders;
     [Space]
     public Transform holder, item;
-    public Animator UIEndWorndow; 
+    public Animator UIEndWorndow;
+    public TMP_Text endText;
 
     void Start(){
         for (int i = 0; i < planets.Length; i++)
@@ -39,6 +47,10 @@ public class Tenders : MonoBehaviour
         }
 
         for (int i = 0; i < Random.Range(5,10); i++)
+        {
+            AddTender();
+        }
+        for (int i = 0; i < Random.Range(2, 5); i++)
         {
 
             var t = (Tender.Type)Random.Range(0, 2);
@@ -49,8 +61,8 @@ public class Tenders : MonoBehaviour
             }
             else
             {
-                var h = Random.Range(6000, 500000);
-                tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = (int)((h * 10) * Random.value), height = h, type = Tender.Type.Fly });
+                var h = Random.Range(3000, 100000);
+                tenders.Add(new Tender() { company = companies[Random.Range(0, companies.Length)], money = (int)((h * 10) * Random.value * 2), height = h, type = Tender.Type.Fly });
             }
         }
         UpdateList();
@@ -67,6 +79,7 @@ public class Tenders : MonoBehaviour
                 }
             }
             if (currentTender.ended) {
+                endText.text = $"[{Player.money}\n+\n{currentTender.money}]\n{currentTender.money}$";
                 UIEndWorndow.Play("Show");
             }
 
@@ -82,6 +95,24 @@ public class Tenders : MonoBehaviour
         UIEndWorndow.Play("Hide");
         if (restart)
             UIManager.manager.StopSimulation();
+    }
+
+    public void AddTender()
+    {
+        var t = (Tender.Type)Random.Range(0, 2);
+        var compID = Random.Range(0, companies.Length);
+        if (t == Tender.Type.Deliver)
+        {
+            var plID = Random.Range(0, planets.Length);
+            var pl = planets[plID];
+            var prefabID = Random.Range(0, sattelites.Length);
+            tenders.Add(new Tender() { company = companies[compID], money = ((int)pl.minY * 10) + (int)(1000000f * Random.value), prefab = sattelites[prefabID], planet = pl, type = Tender.Type.Deliver, prefabID = prefabID, conpanyID = compID, planetID = plID });
+        }
+        else
+        {
+            var h = Random.Range(6000, 500000);
+            tenders.Add(new Tender() { company = companies[compID], money = (int)((h * 10) * Random.value), height = h, type = Tender.Type.Fly, conpanyID = compID });
+        }
     }
 
     public void UpdateList(){

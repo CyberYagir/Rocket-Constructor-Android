@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     public List<GameObject> allParts;
     public GameObject rocket;
     public GameObject simRocket;
-    public GameObject shopB, startB, stopB, tenderB;
+    public GameObject shopB, startB, stopB, tenderB, menuB;
     public static UIManager manager;
     public static bool simulate;
     public TMP_Text infoText, money;
@@ -51,6 +51,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        menuB.SetActive(!simulate);
         money.text = Player.money.ToString();
         if (simulate)
         {
@@ -66,7 +67,9 @@ public class UIManager : MonoBehaviour
                 infoText.text =
                     $"Altitude: {simRocket.transform.position.y.ToString("000 000")} m." + "\n"
                    + $"Velocity: {rb.velocity.x.ToString("000")} - {rb.velocity.y.ToString("000")} km." + "\n"
-                   + $"Mass: {mass.ToString("0000.00")} t.";
+                   + $"Mass: {mass.ToString("0000.00")} t.\n"
+                   + $"Air Friction: {((rb.drag/1f) * 100f).ToString("F2")}%\n"
+                   + $"Gravity: {((rb.gravityScale / 1f) * 100f).ToString("F2")}%";
             }
         }
     }

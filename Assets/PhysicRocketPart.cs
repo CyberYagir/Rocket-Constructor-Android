@@ -34,20 +34,7 @@ public class PhysicRocketPart : MonoBehaviour
         {
             Destroy(Instantiate(Manager.explode.gameObject, transform.position, Quaternion.identity), 20f);
             GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)) * 50f, ForceMode2D.Impulse);
-            if (parent != null)
-            {
-                var parentjoint = parent.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == GetComponent<Rigidbody2D>());
-                parentjoint.obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)) * 50f, ForceMode2D.Impulse);
-
-                Destroy(parentjoint.hingeJoint);
-                transform.parent = null;
-            }
-            for (int i = 0; i < jointConnectors.Count; i++)
-            {
-                if (jointConnectors[i].obj != null)
-                    jointConnectors[i].obj.AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)) * 50f, ForceMode2D.Impulse);
-                Destroy(jointConnectors[i].hingeJoint);
-            }
+            Detach();
             Player.money -= GetComponent<Part>().cost;
             Destroy(gameObject);
         }
@@ -62,24 +49,25 @@ public class PhysicRocketPart : MonoBehaviour
             GetComponent<Thruster>().run = false;
         }
 
+
+
         if (parent != null)
         {
             var parentjoint = parent.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == GetComponent<Rigidbody2D>());
-            Destroy(parentjoint.hingeJoint);
+            if (parentjoint != null)
+            {
+                Destroy(parentjoint.hingeJoint);
+                parent.GetComponent<PhysicRocketPart>().jointConnectors.Remove(parentjoint);
+            }
             transform.parent = null;
             parent = null;
         }
         for (int i = 0; i < jointConnectors.Count; i++)
         {
-            Destroy(jointConnectors[i].hingeJoint);
+            Destroy(jointConnectors[0].hingeJoint);
+            jointConnectors.Remove(jointConnectors[0]);
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-    }
-
-
 
     public void ConnectAllChilds()
     {
@@ -90,7 +78,7 @@ public class PhysicRocketPart : MonoBehaviour
         {
             var connected = builder.connectPoints[i].connectPin.parent;
             var connectedJoints = connected.GetComponents<HingeJoint2D>().ToList();
-            if (connectedJoints.Find(x => x.connectedBody == GetComponent<Rigidbody2D>()) == null)
+            if (connectedJoints.Find(x => x.connectedBody == GetComponent<Rigidbody2D>()) == null && transform.parent != connected.transform)
             {
                 var joint = gameObject.AddComponent<FixedJoint2D>();
                 joint.connectedBody = connected.GetComponent<Rigidbody2D>();
