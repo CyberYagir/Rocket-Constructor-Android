@@ -7,6 +7,6 @@ using UnityEngine;
 public class LangListObjects : ScriptableObject
 {
 
-    public List<string> languages = new List<string>() { "rus", "ukr", "eng" };
-    public List<WordKey> words = new List<WordKey>();
+    public List<string> languages = new List<string>() { "eng", "rus", "ukr" };
+    public List<WordKey> words;
 }

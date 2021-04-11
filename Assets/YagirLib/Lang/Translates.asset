@@ -13,7 +13,88 @@ MonoBehaviour:
   m_Name: Translates
   m_EditorClassIdentifier: 
   languages:
+  - eng
   - rus
   - ukr
-  - eng
-  words: []
+  words:
+  - phrases:
+    - langName: eng
+      phrase: 
+    - langName: rus
+      phrase: 
+    - langName: ukr
+      phrase: 
+    key: 
+    hide: 1
+  - phrases:
+    - langName: eng
+      phrase: 
+    - langName: rus
+      phrase: 
+    - langName: ukr
+      phrase: 
+    key: 
+    hide: 1
+  - phrases:
+    - langName: eng
+      phrase: 
+    - langName: rus
+      phrase: 
+    - langName: ukr
+      phrase: 
+    key: 
+    hide: 1
+  - phrases:
+    - langName: eng
+      phrase: 
+    - langName: rus
+      phrase: 
+    - langName: ukr
+      phrase: 
+    key: 
+    hide: 1
+  - phrases:
+    - langName: eng
+      phrase: 
+    - langName: rus
+      phrase: 
+    - langName: ukr
+      phrase: 
+    key: 
+    hide: 1
+  - phrases:
+    - langName: eng
+      phrase: 
+    - langName: rus
+      phrase: 
+    - langName: ukr
+      phrase: 
+    key: 
+    hide: 1
+  - phrases:
+    - langName: eng
+      phrase: 
+    - langName: rus
+      phrase: 
+    - langName: ukr
+      phrase: 
+    key: 
+    hide: 1
+  - phrases:
+    - langName: eng
+      phrase: 
+    - langName: rus
+      phrase: 
+    - langName: ukr
+      phrase: 
+    key: 
+    hide: 1
+  - phrases:
+    - langName: eng
+      phrase: 
+    - langName: rus
+      phrase: 
+    - langName: ukr
+      phrase: 
+    key: 
+    hide: 0

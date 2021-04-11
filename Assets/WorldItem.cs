@@ -14,7 +14,7 @@ public class WorldItem : MonoBehaviour
     }
     public void Click()
     {
-        if (GetComponentInChildren<TMP_Text>().text != "New")
+        if (GetComponentInChildren<TMP_Text>().text != LangsList.GetWord("New"))
         {
             PlayerPrefs.SetString("WorldLoad", GetComponentInChildren<TMP_Text>().text);
         }

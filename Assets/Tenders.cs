@@ -79,7 +79,7 @@ public class Tenders : MonoBehaviour
                 }
             }
             if (currentTender.ended) {
-                endText.text = $"[{Player.money}\n+\n{currentTender.money}]\n{currentTender.money}$";
+                endText.text = $"{currentTender.money}$";
                 UIEndWorndow.Play("Show");
             }
 

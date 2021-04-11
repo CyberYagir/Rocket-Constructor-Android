@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -13,7 +14,6 @@ public class WordKey : Word
 public class Word
 {
     public List<LangPhrase> phrases = new List<LangPhrase>();
-
     public Word()
     {
 
@@ -44,13 +44,13 @@ public class LangPhrase
     public string phrase;
 }
 
+[ExecuteInEditMode]
 public class LangsList : MonoBehaviour
 {
     public static LangsList langs;
     public static int currLang = 0;
-
     public LangListObjects translates;
- 
+
     public static Dictionary<string, Word> dictionary = new Dictionary<string, Word>();
 
 
@@ -59,12 +59,16 @@ public class LangsList : MonoBehaviour
     private void Update()
     {
     }
-    private void Start()
-    {
+    private void Start(){
         DontDestroyOnLoad(gameObject);
     }
     private void Awake()
     {
+        if (FindObjectsOfType<LangsList>().ToList().Find(x => x.gameObject != gameObject) != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         langs = this;
 
         currLang = 1;

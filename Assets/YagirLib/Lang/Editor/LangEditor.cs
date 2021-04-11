@@ -2,6 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Xml.Serialization;
+using System.IO;
+using System;
+
+public class SaveLang {
+
+    public List<string> languages = new List<string>() { "eng", "rus", "ukr" };
+    public List<WordKey> words;
+    public SaveLang()
+    {
+
+    }
+}
 
 public class LangEditor : EditorWindow
 {
@@ -9,6 +22,7 @@ public class LangEditor : EditorWindow
     public Vector2 scroll = new Vector2(0,0);
     public bool setKeyRusWord;
     public int tab;
+    public LangListObjects translates;
     [MenuItem("YagirLib/Langs")]
     public static void ShowWindow()
     {
@@ -33,14 +47,14 @@ public class LangEditor : EditorWindow
                 return;
             }
         }
-        if (LangsList.langs.translates == null)
+        if (LangsList.langs.translates == null || translates == null)
         {
             GUILayout.Label("Set Translates.assets", EditorStyles.boldLabel, GUILayout.Width(position.width));
-
+            
             LangsList.langs.translates = EditorGUILayout.ObjectField("Asset: ", LangsList.langs.translates, typeof(LangListObjects), true) as LangListObjects;
+            translates = LangsList.langs.translates;
             return;
         }
-
         EditorWindow.GetWindow(typeof(LangEditor)).minSize = new Vector2(500, 300);
 
         tab = GUILayout.Toolbar(tab, new string[] { "Words", "Languages" });
@@ -51,13 +65,13 @@ public class LangEditor : EditorWindow
             GUILayout.Label("Search: ", EditorStyles.boldLabel, GUILayout.Width(100));
             findWord = EditorGUILayout.TextArea(findWord, GUILayout.Width(position.width - 120));
             GUILayout.EndHorizontal();
-            setKeyRusWord = GUILayout.Toggle(setKeyRusWord, "Key = Rus", GUILayout.Width(200));
+            setKeyRusWord = GUILayout.Toggle(setKeyRusWord, "Key = Fist lang", GUILayout.Width(200));
             GUILayout.Space(20);
-            var words = LangsList.langs.translates.words;
+            var words = translates.words;
 
             if (GUILayout.Button("Add Word"))
             {
-                LangsList.langs.translates.words.Insert(0, new WordKey());
+                translates.words.Insert(0, new WordKey());
                 findWord = "";
             }
 
@@ -98,7 +112,7 @@ public class LangEditor : EditorWindow
                     }
                     if (GUILayout.Button("Remove"))
                     {
-                        LangsList.langs.translates.words.Remove(item);
+                        translates.words.Remove(item);
                         OnGUI();
                         return;
                     }
@@ -115,7 +129,7 @@ public class LangEditor : EditorWindow
                 }
                 if (GUILayout.Button("Remove"))
                 {
-                    LangsList.langs.translates.words.Remove(item);
+                    translates.words.Remove(item);
                     OnGUI();
                     return;
                 }
@@ -144,7 +158,7 @@ public class LangEditor : EditorWindow
             GUILayout.EndScrollView();
             if (GUILayout.Button("Add Word"))
             {
-                LangsList.langs.translates.words.Insert(0, new WordKey() { key = "Key", hide = true});
+                translates.words.Insert(0, new WordKey() { key = "Key", hide = true});
                 findWord = "";
             }
         }
@@ -152,8 +166,8 @@ public class LangEditor : EditorWindow
         {
             GUILayout.Label("Languages List: ", EditorStyles.boldLabel, GUILayout.Width(100));
 
-            var langs = LangsList.langs.translates.languages;
-            var words = LangsList.langs.translates.words;
+            var langs = translates.languages;
+            var words = translates.words;
             for (int i = 0; i < langs.Count; i++)
             {
                 GUILayout.BeginHorizontal();
@@ -188,6 +202,19 @@ public class LangEditor : EditorWindow
                     words[j].phrases.Add(new LangPhrase() { langName = langs[langs.Count - 1], phrase = "" });
                 }
 
+                OnGUI();
+                return;
+            }
+            if (GUILayout.Button("Export", GUILayout.Width(position.width)))
+            {
+                var s = new SaveLang();
+                s.languages = translates.languages;
+                s.words = translates.words;
+                XmlSerializer formatter = new XmlSerializer(typeof(SaveLang));
+                using (FileStream fs = new FileStream(@"C:" + @"\translates.xml", FileMode.OpenOrCreate))
+                {
+                    formatter.Serialize(fs, s);
+                }
                 OnGUI();
                 return;
             }
