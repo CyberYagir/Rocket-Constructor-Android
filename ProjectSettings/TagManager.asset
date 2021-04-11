@@ -8,6 +8,7 @@ TagManager:
   - MainPart
   - NotDrag
   - Ground
+  - ParticlesCollider
   layers:
   - Default
   - TransparentFX

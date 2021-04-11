@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public static bool simulate;
     public TMP_Text infoText, money;
     public GameObject controls;
+    public Material defuse;
     public void Start()
     {
         manager = this;
@@ -128,6 +129,11 @@ public class UIManager : MonoBehaviour
             p.parts.Add(item.transform);
             item.transform.tag = "NotDrag";
             allParts.Add(item.gameObject);
+            item.GetComponent<SpriteRenderer>().material = defuse;
+            foreach (var pin in item.GetComponentsInChildren<PinType>())
+            {
+                Destroy(pin.gameObject);
+            } 
             item.gameObject.GetComponent<PhysicRocketPart>().parent = item.transform.parent;
             Destroy(item);
         }

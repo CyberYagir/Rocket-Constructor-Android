@@ -15,7 +15,12 @@ public class Thruster : Part
     public SpriteRenderer icon;
     public PhysicRocketPart pPart;
     public Sprite hidedTruster, normalThruster;
-
+    public ParticleSystem fog;
+    private void Awake()
+    {
+        fire.SetActive(true);
+        fire.GetComponent<ParticleSystem>().collision.SetPlane(0, GameObject.FindGameObjectWithTag("ParticlesCollider").transform);
+    }
     private void Update()
     {
         if (rb == null)
@@ -52,7 +57,20 @@ public class Thruster : Part
                 run = false;
             }
         }
-
+        if (rb != null)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position - transform.up, -transform.up, 10f);
+            if (hit.transform != null && run)
+            {
+                fog.emissionRate = 50;
+                fog.transform.position = hit.point;
+                fog.collision.SetPlane(0, GameObject.FindGameObjectWithTag("ParticlesCollider").transform);
+            }
+            else
+            {
+                fog.emissionRate = 0;
+            }
+        }
         if (rb != null && run)
         {
             var prnt = transform;
@@ -84,9 +102,12 @@ public class Thruster : Part
             }
 
             rb.AddRelativeForce((Vector3.up + new Vector3(Rocket.offcet,0)) * sharedForce * Time.deltaTime, ForceMode2D.Force);
+
+            
+
         }
-        fire.SetActive(run);
-        
+        fire.GetComponent<ParticleSystem>().emissionRate = run ? 100 : 0;
+        fire.transform.GetChild(0).gameObject.SetActive(run);
     }
 
 }

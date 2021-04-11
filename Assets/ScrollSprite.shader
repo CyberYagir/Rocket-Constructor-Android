@@ -47,8 +47,8 @@ Shader "Custom/Sprite Scrolling" {
             OUT.vertex = UnityFlipSprite(IN.vertex, _Flip);
             OUT.vertex = UnityObjectToClipPos(OUT.vertex);
             OUT.texcoord = IN.texcoord;
-            OUT.texcoord.x += _Time * _ScrollSpeed.x;
-            OUT.texcoord.y += _Time * _ScrollSpeed.y;
+            OUT.texcoord.x += _ScrollSpeed.x;
+            OUT.texcoord.y += _ScrollSpeed.y;
             OUT.color = IN.color * _Color * _RendererColor;
 
             #ifdef PIXELSNAP_ON

@@ -70,9 +70,6 @@ public class LangsList : MonoBehaviour
             return;
         }
         langs = this;
-
-        currLang = 1;
-
         dictionary = new Dictionary<string, Word>();
         if (translates != null)
         {
