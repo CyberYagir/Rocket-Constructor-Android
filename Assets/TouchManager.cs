@@ -36,7 +36,7 @@ public class TouchManager : MonoBehaviour
                     }
                 }
                 UIManager.manager.infoText.transform.parent.gameObject.SetActive(true);
-                UIManager.manager.infoText.text = "Selected: " + selected.name + "\nMass:" + mass + $"({selected.GetComponent<Part>().mass.ToString()}) t." + (fuel == 0 ? "" : "\nFuel: " + fuel) + "\nCost: " + selected.GetComponent<Part>().cost + " $";
+                UIManager.manager.infoText.text = $"{LangsList.GetWord("Selected")}: " + selected.name.Split(':')[0] + $"\n{LangsList.GetWord("Mass")}:" + mass + $"({selected.GetComponent<Part>().mass.ToString()}) t." + (fuel == 0 ? "" : $"\n{LangsList.GetWord("Fuel")}: " + fuel + " l.") + $"\n{LangsList.GetWord("Cost")}: " + selected.GetComponent<Part>().cost + " $";
             }
             else
             {

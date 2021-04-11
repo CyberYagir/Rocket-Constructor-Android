@@ -8,7 +8,6 @@ public class Part : MonoBehaviour
     public string partCode;
     public string partFullName;
     public float mass;
-    public bool mode = false;
     public bool randomName = true;
     public float cost;
     public void Start()

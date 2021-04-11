@@ -138,15 +138,15 @@ public class GroupsManager : MonoBehaviour
             if (!groups[i].detach)
             {
                 var it = Instantiate(item.gameObject, holder).GetComponent<GroupItem>();
-                it.text.text = "Group: " + i;
+                it.text.text = LangsList.GetWord("Group") + ": " + i;
                 it.group = groups[i];
                 it.DrawItems();
                 it.gameObject.SetActive(true);
 
 
                 var itm = Instantiate(miniItem.gameObject, miniHolder).GetComponent<GroupMiniItem>();
-                itm.name = "Group: " + i;
-                itm.text.text = "Group: " + i;
+                itm.name = LangsList.GetWord("Group") + ": " + i;
+                itm.text.text = LangsList.GetWord("Group") + ": " + i;
                 itm.group = groups[i];
                 itm.gameObject.SetActive(true);
             }

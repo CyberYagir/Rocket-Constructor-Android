@@ -10,10 +10,23 @@ public class MainMenu : MonoBehaviour
     public string filePath;
 
     public Transform item, holder;
+    public TMP_Dropdown dropdown;
+    
+
+    public void SetLaguage(){
+        LangsList.currLang = dropdown.value;
+        PlayerPrefs.SetInt("Lang", (int)dropdown.value);
+        Application.LoadLevel(0);
+    }
+
 
     private void Start()
     {
         menu.Play("Show");
+        dropdown.value = PlayerPrefs.GetInt("Lang", 0);
+        dropdown.onValueChanged.AddListener(delegate {
+            SetLaguage();
+        });
         filePath = Application.persistentDataPath;
     }
     public void Show(Animator animator)

@@ -65,10 +65,10 @@ public class UIManager : MonoBehaviour
                 }
                 var rb = simRocket.GetComponent<Rigidbody2D>();
                 infoText.text =
-                    $"Altitude: {simRocket.transform.position.y.ToString("000 000")} m." + "\n"
-                   + $"Velocity: {rb.velocity.x.ToString("000")} - {rb.velocity.y.ToString("000")} km." + "\n"
-                   + $"Mass: {mass.ToString("0000.00")} t.\n"
-                   + $"Air Friction/Grav.: {((rb.gravityScale / 1f) * 100f).ToString("F2")}%";
+                    $"{LangsList.GetWord("Altitude")}: {simRocket.transform.position.y.ToString("000 000")} m." + "\n"
+                   + $"{LangsList.GetWord("Velocity")}: {rb.velocity.x.ToString("000")} - {rb.velocity.y.ToString("000")} km." + "\n"
+                   + $"{LangsList.GetWord("Mass")}: {mass.ToString("0000.00")} t.\n"
+                   + $"{LangsList.GetWord("Air Friction")}/{LangsList.GetWord("Grav")}.: {((rb.gravityScale / 1f) * 100f).ToString("F2")}%";
             }
         }
     }

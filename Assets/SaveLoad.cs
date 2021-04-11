@@ -61,7 +61,7 @@ public class SaveLoad : MonoBehaviour
     public void Save()
     {
         worldname = inputField.text;
-        if (worldname.Trim() == "") { inputField.placeholder.GetComponent<TMP_Text>().text = "Enter save name!"; return; }
+        if (worldname.Trim() == "") { inputField.placeholder.GetComponent<TMP_Text>().text = LangsList.GetWord("Enter save name!"); return; }
 
 
         var world = new World();
@@ -98,7 +98,7 @@ public class SaveLoad : MonoBehaviour
 
         worldname = inputField.text;
         if (button)
-            if (worldname.Trim() == "") { inputField.placeholder.GetComponent<TMP_Text>().text = "Enter save name!";  return; }
+            if (worldname.Trim() == "") { inputField.placeholder.GetComponent<TMP_Text>().text = LangsList.GetWord("Enter save name!"); ;  return; }
         
         var world = new World();
 

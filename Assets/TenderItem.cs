@@ -34,15 +34,15 @@ public class TenderItem : MonoBehaviour, IPointerDownHandler
         name_.text = tender.company.name;
         if (tender.type == Tender.Type.Deliver)
         {
-            target.text = "Target: " + tender.planet.name + $" [{tender.planet.minY}-{tender.planet.maxY}]";
+            target.text = LangsList.GetWord("Target") + ": " + tender.planet.name + $"\n [{tender.planet.minY}-{tender.planet.maxY}]";
         }
         else
         {
-            target.text = "Target: " + tender.height + " m.";
+            target.text = LangsList.GetWord("Target") + ": " + tender.height + " m.";
         }
-        mission.text = "Mission: " + tender.type.ToString();
-        reward.text = "Reward: " + tender.money;
-        workers.text = "Workers\n " + tender.company.peoples;
+        mission.text = LangsList.GetWord("Mission") + ": " + LangsList.GetWord(tender.type.ToString());
+        reward.text = LangsList.GetWord("Reward") + ": " + tender.money;
+        workers.text = LangsList.GetWord("Workers") + "\n " + tender.company.peoples;
         if (Tenders.currentTender == tender)
         {
             GetComponent<Image>().color = new Color(0.2260591f, 0.3773585f, 0.2501912f, 0.8078431f);

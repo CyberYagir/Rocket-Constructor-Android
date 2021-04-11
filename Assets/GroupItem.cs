@@ -10,7 +10,7 @@ public class GroupItem : MonoBehaviour
     public Transform subholder;
     public Transform subitem;
     public TMP_Text text;
-    public GameObject detachB, modeB, activeB, addB;
+    public GameObject detachB, activeB, addB;
     public Group group;
 
 
@@ -36,7 +36,6 @@ public class GroupItem : MonoBehaviour
     private void Update()
     {
         detachB.active = UIManager.simulate;
-        modeB.active = UIManager.simulate;
         activeB.active = UIManager.simulate;
         addB.active = !UIManager.simulate;
         
@@ -55,11 +54,6 @@ public class GroupItem : MonoBehaviour
                 it.GetComponentInChildren<Image>().sprite = group.parts[i].GetComponent<SpriteRenderer>().sprite;
                 var t = it.transform.GetChild(1).GetComponent<TMP_Text>();
                 t.text = group.parts[i].partName;
-                var thruster = group.parts[i].GetComponent<Thruster>();
-                var fuel = group.parts[i].GetComponent<FuelTank>();
-                it.transform.GetChild(2).GetComponent<TMP_Text>().text = "";
-                it.transform.GetChild(2).GetComponent<TMP_Text>().text += (thruster != null ? "Mode: " + thruster.mode + "\n" : "");
-                it.transform.GetChild(2).GetComponent<TMP_Text>().text += (fuel != null ? "Fuel: " + fuel.fuel + "/" + fuel.maxFuel + "\n" : "");
                 it.SetActive(true);
             }
             else

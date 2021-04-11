@@ -89,18 +89,4 @@ public class Thruster : Part
         
     }
 
-    public void ModeChange()
-    {
-        mode = !mode;
-        if (!mode)
-        {
-            icon.color = new Color(0.5f, 0.5f, 0.5f);
-            sharedForce = force;
-        }
-        else
-        {
-            icon.color = Color.red;
-            sharedForce = force * (force * 0.001f);
-        }
-    }
 }

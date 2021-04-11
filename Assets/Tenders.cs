@@ -116,7 +116,6 @@ public class Tenders : MonoBehaviour
     }
 
     public void UpdateList(){
-        print("UpdateList");
         foreach (Transform item in holder)
         {
             Destroy(item.gameObject);   
