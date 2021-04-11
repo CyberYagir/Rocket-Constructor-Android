@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class WorldItem : MonoBehaviour
 {
+    private void Start()
+    {
+        if (GetComponentInChildren<TMP_Text>().text == "New")
+        {
+            GetComponentInChildren<TMP_Text>().gameObject.AddComponent<TextTranslator>().key = "New";
+        }
+    }
     public void Click()
     {
         if (GetComponentInChildren<TMP_Text>().text != "New")
