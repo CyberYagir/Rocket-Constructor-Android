@@ -16,6 +16,8 @@ public class Thruster : Part
     public PhysicRocketPart pPart;
     public Sprite hidedTruster, normalThruster;
     public ParticleSystem fog;
+    public AudioSource audioSource;
+    public float volume;
     private void Awake()
     {
         fire.SetActive(true);
@@ -23,6 +25,29 @@ public class Thruster : Part
     }
     private void Update()
     {
+        if (run)
+        {
+            if (volume < 1)
+            {
+                volume += 0.5f * Time.deltaTime;
+            }
+            else
+            {
+                volume = 1;
+            }
+        }
+        else
+        {
+            if (volume > 0)
+            {
+                volume -= 0.8f * Time.deltaTime;
+            }
+            else
+            {
+                volume = 0;
+            }
+        }
+        audioSource.volume = volume * (1f - (Camera.main.transform.position.y / 5000f));
         if (rb == null)
         {
             sharedForce = force;
@@ -102,9 +127,6 @@ public class Thruster : Part
             }
 
             rb.AddRelativeForce((Vector3.up + new Vector3(Rocket.offcet,0)) * sharedForce * Time.deltaTime, ForceMode2D.Force);
-
-            
-
         }
         fire.GetComponent<ParticleSystem>().emissionRate = run ? 100 : 0;
         fire.transform.GetChild(0).gameObject.SetActive(run);
