@@ -29,8 +29,8 @@ public class WorldItem : MonoBehaviour
 
     public void Delete(TMP_Text t)
     {
-        print(FindObjectOfType<MainMenu>().filePath + @"\" + t.text + ".yWorld");
-        File.Delete(FindObjectOfType<MainMenu>().filePath + @"\" + t.text + ".yWorld");
+        Debug.LogError(FindObjectOfType<MainMenu>().filePath + @"/" + t.text + ".yWorld");
+        File.Delete(FindObjectOfType<MainMenu>().filePath + @"/" + t.text + ".yWorld");
         FindObjectOfType<MainMenu>().UpdateWorlds();
     }
 }
