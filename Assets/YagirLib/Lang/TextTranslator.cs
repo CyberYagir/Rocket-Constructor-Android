@@ -7,18 +7,25 @@ using UnityEngine.UI;
 public class TextTranslator : MonoBehaviour
 {
     public string key;
-    public void Start()
-    {
-        var tmpT = GetComponent<TMP_Text>();
-        var T = GetComponent<Text>();
+    public bool init;
+    
 
-        if (tmpT)
+    private void Update()
+    {
+        if (!init)
         {
-            tmpT.text = LangsList.GetWord(key);
-        }
-        if (T)
-        {
-            T.text = LangsList.GetWord(key);
+            var tmpT = GetComponent<TMP_Text>();
+            var T = GetComponent<Text>();
+
+            if (tmpT)
+            {
+                tmpT.text = LangsList.GetWord(key);
+            }
+            if (T)
+            {
+                T.text = LangsList.GetWord(key);
+            }
+            init = true;
         }
     }
 }

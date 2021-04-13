@@ -19,11 +19,15 @@ public class MainMenu : MonoBehaviour
         Application.LoadLevel(0);
     }
 
-
+    private void Awake()
+    {
+        dropdown.value = PlayerPrefs.GetInt("Lang", 0);
+        LangsList.currLang = dropdown.value;
+        PlayerPrefs.SetInt("Lang", (int)dropdown.value);
+    }
     private void Start()
     {
         menu.Play("Show");
-        dropdown.value = PlayerPrefs.GetInt("Lang", 0);
         dropdown.onValueChanged.AddListener(delegate {
             SetLaguage();
         });

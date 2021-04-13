@@ -8,6 +8,7 @@ public class ScrollSky : MonoBehaviour
     public Vector3 passiveScroll;
     public Sun sun;
     public float del = 1;
+    public float scale = 1;
     private void Start()
     {
         sun = FindObjectOfType<Sun>();
@@ -26,7 +27,7 @@ public class ScrollSky : MonoBehaviour
             sprite.material.SetVector("_ScrollSpeed", Camera.main.transform.position/del);
         }
         var n = sun.light.intensity + 0.1f;
-        sprite.transform.localScale = Vector3.one * (Camera.main.transform.position.y > 1000 ?  1 + (2f * ((Camera.main.transform.position.y - 1000f) / 5000f)) : 1f);
+        sprite.transform.localScale = Vector3.one * (Camera.main.transform.position.y > 1000 ?  1 + (2f * ((Camera.main.transform.position.y - 1000f) / 5000f)) : 1f) * scale;
         sprite.color = new Color(n, n, n, Camera.main.transform.position.y > 1000 ? 1f - ((Camera.main.transform.position.y - 1000f) / 5000f) : 1f);
     }
 }

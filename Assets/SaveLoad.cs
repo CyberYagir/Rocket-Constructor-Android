@@ -130,6 +130,7 @@ public class SaveLoad : MonoBehaviour
             var n = (GameObject)Instantiate(Resources.Load("Parts/" + world.parts[i].partName), world.parts[i].pos.to(), Quaternion.identity);
             n.GetComponent<Part>().randomName = false;
             n.GetComponent<Part>().partCode = world.parts[i].uniq;
+            n.GetComponent<Part>().cost = FindObjectsOfType<ShopItem>().ToList().Find(x => x.prefab.GetComponent<Part>().partName == world.parts[i].partName).cost;
             parts.Add(n.GetComponent<Part>());
         }
         parts.Reverse();

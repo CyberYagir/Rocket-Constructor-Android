@@ -30,7 +30,7 @@ public class PhysicRocketPart : MonoBehaviour
         }
         velDelta = oldVel - GetComponent<Rigidbody2D>().velocity.y;
         oldVel = GetComponent<Rigidbody2D>().velocity.y;
-        if (velDelta < -3f && GetComponent<Rigidbody2D>().velocity.y < 0)
+        if (velDelta < -4f && GetComponent<Rigidbody2D>().velocity.y < 0)
         {
             Destroy(Instantiate(Manager.explode.gameObject, transform.position, Quaternion.identity), 20f);
             GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)) * 50f, ForceMode2D.Impulse);
