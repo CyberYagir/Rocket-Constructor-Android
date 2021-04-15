@@ -18,8 +18,10 @@ public class Thruster : Part
     public ParticleSystem fog;
     public AudioSource audioSource;
     public float volume;
+    int isSound;
     private void Awake()
     {
+        isSound = PlayerPrefs.GetInt("Sounds", 1);
         fire.SetActive(true);
         fire.GetComponent<ParticleSystem>().collision.SetPlane(0, GameObject.FindGameObjectWithTag("ParticlesCollider").transform);
     }
@@ -47,7 +49,7 @@ public class Thruster : Part
                 volume = 0;
             }
         }
-        audioSource.volume = volume * (1f - (Camera.main.transform.position.y / 5000f));
+        audioSource.volume = (volume * (1f - (Camera.main.transform.position.y / 5000f))) * isSound;
         if (rb == null)
         {
             sharedForce = force;
@@ -129,7 +131,7 @@ public class Thruster : Part
             rb.AddRelativeForce((Vector3.up + new Vector3(Rocket.offcet,0)) * sharedForce * Time.deltaTime, ForceMode2D.Force);
         }
         fire.GetComponent<ParticleSystem>().emissionRate = run ? 100 : 0;
-        fire.transform.GetChild(0).gameObject.SetActive(run);
+        fire.transform.GetChild(0).gameObject.SetActive(run && UIManager.simulate);
     }
 
 }

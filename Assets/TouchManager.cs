@@ -6,6 +6,7 @@ using UnityEngine;
 public class TouchManager : MonoBehaviour
 {
     public static Transform selected;
+    public Transform select_visual;
     public static TouchManager touchManager;
     public float magnetSpeed, cameraSpeed;
     public Transform camera;
@@ -17,6 +18,8 @@ public class TouchManager : MonoBehaviour
 
     void Update()
     {
+
+        select_visual = selected;
         if (selected != null && !UIManager.simulate)
         {
             selected.parent = null;

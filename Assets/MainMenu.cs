@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -11,16 +12,27 @@ public class MainMenu : MonoBehaviour
 
     public Transform item, holder;
     public TMP_Dropdown dropdown;
-    
+    public Toggle music, sounds;
 
     public void SetLaguage(){
         LangsList.currLang = dropdown.value;
         PlayerPrefs.SetInt("Lang", (int)dropdown.value);
         Application.LoadLevel(0);
     }
+    public void SetMusic()
+    {
+        PlayerPrefs.SetInt("Music", music.isOn ? 1 : 0);
+    }
+
+    public void SetSound()
+    {
+        PlayerPrefs.SetInt("Sounds", sounds.isOn ? 1 : 0);
+    }
 
     private void Awake()
     {
+        music.isOn = PlayerPrefs.GetInt("Music", 1) == 1 ? true : false;
+        sounds.isOn = PlayerPrefs.GetInt("Sounds", 1) == 1 ? true : false;
         dropdown.value = PlayerPrefs.GetInt("Lang", 0);
         LangsList.currLang = dropdown.value;
         PlayerPrefs.SetInt("Lang", (int)dropdown.value);

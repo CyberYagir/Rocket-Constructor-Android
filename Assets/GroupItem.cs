@@ -10,7 +10,7 @@ public class GroupItem : MonoBehaviour
     public Transform subholder;
     public Transform subitem;
     public TMP_Text text;
-    public GameObject detachB, activeB, addB;
+    public GameObject detachB, activeB, addB, removeB;
     public Group group;
 
 
@@ -33,12 +33,18 @@ public class GroupItem : MonoBehaviour
         n.group = group;
         n.Detach();
     }
+    public void Remove()
+    {
+        var n = FindObjectOfType<GroupsManager>();
+        n.groups.Remove(group);
+        n.UpdateList();
+    }
     private void Update()
     {
         detachB.active = UIManager.simulate;
         activeB.active = UIManager.simulate;
         addB.active = !UIManager.simulate;
-        
+        removeB.active = !UIManager.simulate;
     }
     public void DrawItems()
     {

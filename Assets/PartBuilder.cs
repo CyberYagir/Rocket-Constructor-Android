@@ -51,6 +51,7 @@ public class PartBuilder : MonoBehaviour
     }
     public void Unconnect()
     {
+        print("Unconnet");
         for (int i = 0; i < points.Length; i++)
         {
             points[i].tag = "Untagged";
@@ -87,7 +88,7 @@ public class PartBuilder : MonoBehaviour
     {
         if (Input.touchCount == 1 && TouchManager.selected == transform)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            if (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Stationary)
             {
                 Unconnect();
             }
@@ -148,7 +149,6 @@ public class PartBuilder : MonoBehaviour
     {
         //Unconnect();
         var parts = FindObjectsOfType<Part>().ToList();
-        print(parts.Count);
         for (int i = 0; i < connects.Count; i++)
         {
             var connected = parts.Find(x => x.partCode == connects[i].connectedObjectCode).gameObject;
