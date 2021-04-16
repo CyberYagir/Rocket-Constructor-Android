@@ -880,7 +880,7 @@ MonoBehaviour:
   m_Content: {fileID: 757809054}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -11099,7 +11099,7 @@ SpriteRenderer:
   m_SortingLayer: -4
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 61f555b5cfaf08342adad04b6de267d9, type: 3}
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.33241364, g: 0.5333303, b: 0.8490566, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -11121,7 +11121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5a75ac84ebad5438dd9879b14bd534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  light: {r: 0, g: 1, b: 1, a: 1}
+  light: {r: 0.33241364, g: 0.5333303, b: 0.8490566, a: 1}
   sun: {fileID: 155397645}
 --- !u!1 &1249399455
 GameObject:

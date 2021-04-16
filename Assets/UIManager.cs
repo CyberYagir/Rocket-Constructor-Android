@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
             Destroy(allParts[i].gameObject);
         }
         simRocket = null;
-        Camera.main.transform.position = new Vector3(-0.87f, 0, -10f);
+        Camera.main.transform.position = new Vector3(0.67f, 0, -10f);
         rocket.SetActive(true);
 
         shopB.SetActive(true);

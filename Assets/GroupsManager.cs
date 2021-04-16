@@ -24,7 +24,7 @@ public class GroupsManager : MonoBehaviour
         {
             group.parts[i].GetComponent<SpriteRenderer>().color = Color.white;
         }
-        TouchManager.touchManager.enabled = true;
+        ///TouchManager.touchManager.enabled = true;
         select = false;
         canvas.SetActive(true);
         endCanvas.SetActive(false);
@@ -33,6 +33,11 @@ public class GroupsManager : MonoBehaviour
 
     public void Active()
     {
+        var v = FindObjectOfType<Rocket>().parts;
+        for (int i = 0; i < v.Count; i++)
+        {
+            v[i].GetComponent<Rigidbody2D>().freezeRotation = false;
+        }
         for (int i = 0; i < group.parts.Count; i++)
         {
             var n = FindObjectsOfType<Part>().ToList().Find(x => x.partFullName == group.parts[i].partFullName);

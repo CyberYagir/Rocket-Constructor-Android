@@ -13,7 +13,7 @@ public class PartBuilder : MonoBehaviour
 {
     public Transform[] points;
     public List<ConnectPoints> connectPoints = new List<ConnectPoints>();
-
+    public bool unconnected;
 
 
     public void setTag(string tag, bool log = false)
@@ -48,10 +48,11 @@ public class PartBuilder : MonoBehaviour
         {
             points[i].tag = "Pin";
         }
+        unconnected = false;
     }
     public void Unconnect()
     {
-        print("Unconnet");
+        unconnected = true;
         for (int i = 0; i < points.Length; i++)
         {
             points[i].tag = "Untagged";
@@ -70,25 +71,42 @@ public class PartBuilder : MonoBehaviour
             transform.parent = null;
 
 
+
+
             var childs = GetComponentsInChildren<PartBuilder>().ToList();
-            for (int i = 0; i < connectPoints.Count; i++)
+            for (int i = 0; i < childs.Count; i++)
             {
-                if (!childs.Contains(connectPoints[i].connectPin.parent.GetComponent<PartBuilder>()))
+                for (int j = 0; j < childs[i].connectPoints.Count; j++)
                 {
-                    connectPoints[i].objectPin.gameObject.SetActive(true);
-                    connectPoints[i].connectPin.gameObject.SetActive(true);
-                    connectPoints[i].connectPin.parent.GetComponent<PartBuilder>().connectPoints.RemoveAll(x => x.connectPin.parent == transform);
-                    connectPoints[i].toDel = true;
+                    if (!childs.Contains(childs[i].connectPoints[j].connectPin.parent.GetComponent<PartBuilder>()))
+                    {
+                        childs[i].connectPoints[j].objectPin.gameObject.SetActive(true);
+                        childs[i].connectPoints[j].connectPin.gameObject.SetActive(true);
+                        childs[i].connectPoints[j].connectPin.parent.GetComponent<PartBuilder>().connectPoints.RemoveAll(x => x.connectPin.parent.GetComponent<PartBuilder>() == this);
+                        childs[i].connectPoints[j].toDel = true;
+                    }
                 }
+                childs[i].connectPoints.RemoveAll(x => x.toDel);
             }
-            connectPoints.RemoveAll(x => x.toDel);
+
+            //for (int i = 0; i < connectPoints.Count; i++)
+            //{
+            //    if (!childs.Contains(connectPoints[i].connectPin.parent.GetComponent<PartBuilder>()))
+            //    {
+            //        connectPoints[i].objectPin.gameObject.SetActive(true);
+            //        connectPoints[i].connectPin.gameObject.SetActive(true);
+            //        connectPoints[i].connectPin.parent.GetComponent<PartBuilder>().connectPoints.RemoveAll(x => x.connectPin.parent == transform);
+            //        connectPoints[i].toDel = true;
+            //    }
+            //}
+            //connectPoints.RemoveAll(x => x.toDel);
         }
     }
     private void Update()
     {
         if (Input.touchCount == 1 && TouchManager.selected == transform)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Stationary)
+            if ((Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Stationary) && !unconnected)
             {
                 Unconnect();
             }

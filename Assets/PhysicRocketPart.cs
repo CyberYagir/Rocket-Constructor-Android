@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class JointConnector{
     public Rigidbody2D obj;
-    public FixedJoint2D hingeJoint;
+    public FixedJoint2D fixedJoint;
 }
 
 public class PhysicRocketPart : MonoBehaviour
@@ -21,9 +21,9 @@ public class PhysicRocketPart : MonoBehaviour
         {
             for (int i = 0; i < jointConnectors.Count; i++)
             {
-                if (jointConnectors[i].hingeJoint != null)
+                if (jointConnectors[i].fixedJoint != null)
                 {
-                    jointConnectors[i].hingeJoint.autoConfigureConnectedAnchor = false;
+                    jointConnectors[i].fixedJoint.autoConfigureConnectedAnchor = false;
                 }
             }
             init = false;
@@ -56,7 +56,7 @@ public class PhysicRocketPart : MonoBehaviour
             var parentjoint = parent.GetComponent<PhysicRocketPart>().jointConnectors.Find(x => x.obj == GetComponent<Rigidbody2D>());
             if (parentjoint != null)
             {
-                Destroy(parentjoint.hingeJoint);
+                Destroy(parentjoint.fixedJoint);
                 parent.GetComponent<PhysicRocketPart>().jointConnectors.Remove(parentjoint);
             }
             transform.parent = null;
@@ -64,7 +64,7 @@ public class PhysicRocketPart : MonoBehaviour
         }
         for (int i = 0; i < jointConnectors.Count; i++)
         {
-            Destroy(jointConnectors[0].hingeJoint);
+            Destroy(jointConnectors[0].fixedJoint);
             jointConnectors.Remove(jointConnectors[0]);
         }
     }
@@ -73,17 +73,18 @@ public class PhysicRocketPart : MonoBehaviour
     {
         var builder = GetComponent<PartBuilder>();
         GetComponent<Rigidbody2D>().mass = GetComponent<Part>().mass;
-
+        GetComponent<Rigidbody2D>().freezeRotation = true;
         for (int i = 0; i < builder.connectPoints.Count; i++)
         {
             var connected = builder.connectPoints[i].connectPin.parent;
-            var connectedJoints = connected.GetComponents<HingeJoint2D>().ToList();
-            if (connectedJoints.Find(x => x.connectedBody == GetComponent<Rigidbody2D>()) == null && transform.parent != connected.transform)
+            var connectedJoints = connected.GetComponents<FixedJoint2D>().ToList();
+
+            if (connectedJoints.Find(x => x.connectedBody == GetComponent<Rigidbody2D>()) == null)
             {
                 var joint = gameObject.AddComponent<FixedJoint2D>();
                 joint.connectedBody = connected.GetComponent<Rigidbody2D>();
 
-                var conn = new JointConnector() { obj = connected.GetComponent<Rigidbody2D>(), hingeJoint = joint };
+                var conn = new JointConnector() { obj = connected.GetComponent<Rigidbody2D>(), fixedJoint = joint };
                 jointConnectors.Add(conn);
             }
         }

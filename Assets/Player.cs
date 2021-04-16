@@ -18,9 +18,9 @@ public class Player : MonoBehaviour
     public void ShowInterstitialAd() {
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            if (money <= 0)
+            if (money <= 50000)
             {
-                money += 100000;
+                money += 1000000;
             }
         }
         else
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
                 Player.money += 1000000;
                 break;
             case ShowResult.Skipped:
+                Player.money += 1000000;
                 Debug.Log("The ad was skipped before reaching the end.");
                 break;
             case ShowResult.Failed:

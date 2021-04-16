@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 218504658982894068}
   - component: {fileID: 218504658982894065}
   - component: {fileID: 8685800475655482672}
-  - component: {fileID: 592974576397023004}
+  - component: {fileID: 2006364736836614895}
   m_Layer: 0
   m_Name: Thruster
   m_TagString: Untagged
@@ -284,6 +284,7 @@ MonoBehaviour:
   - {fileID: 218504657871104551}
   - {fileID: 2377133693261316348}
   connectPoints: []
+  unconnected: 0
 --- !u!114 &8685800475655482672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,8 +317,9 @@ MonoBehaviour:
     type: 3}
   fog: {fileID: 5757022703610064236}
   audioSource: {fileID: 9052391871300090488}
---- !u!60 &592974576397023004
-PolygonCollider2D:
+  volume: 0
+--- !u!61 &2006364736836614895
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -339,16 +341,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.4375, y: 0.625}
-      - {x: -0.43875885, y: -0.061798275}
-      - {x: -0.2532637, y: -0.37704968}
-      - {x: -0.25071263, y: -0.6164567}
-      - {x: 0.24995136, y: -0.61645675}
-      - {x: 0.25446272, y: -0.37938213}
-      - {x: 0.4375, y: -0.061798334}
-      - {x: 0.4375, y: 0.625}
+  serializedVersion: 2
+  m_Size: {x: 0.875, y: 1.25}
+  m_EdgeRadius: 0
 --- !u!1 &2997251432629866772
 GameObject:
   m_ObjectHideFlags: 0

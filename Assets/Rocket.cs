@@ -19,6 +19,8 @@ public class Rocket : MonoBehaviour
     private void Update()
     {
         offcet = left + right;
+
+
         if (UIManager.manager.simRocket != null)
         {
             Camera.main.gameObject.transform.position = UIManager.manager.simRocket.transform.position + new Vector3(0, 0, -10);
