@@ -29,6 +29,10 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetInt("Sounds", sounds.isOn ? 1 : 0);
     }
 
+    public void GoTutorial()
+    {
+        Application.LoadLevel(2);
+    }
     private void Awake()
     {
         music.isOn = PlayerPrefs.GetInt("Music", 1) == 1 ? true : false;

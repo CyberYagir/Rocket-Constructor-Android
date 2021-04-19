@@ -331,15 +331,17 @@ MonoBehaviour:
 
         Sprites: Yagir
 
-        Test: Yagir'
+        Test: Yagir
+
+        Valariz'
     - langName: rus
       phrase: "\u0421\u043E\u0437\u0434\u0430\u0442\u0435\u043B\u044C: Yagir\n\u0421\u043F\u0440\u0430\u0439\u0442\u044B:
-        Yagir\n\u0422\u0435\u0441\u0442: Yagir"
+        Yagir\n\u0422\u0435\u0441\u0442: Yagir\nValariz"
     - langName: ukr
       phrase: "\u0422\u0432\u043E\u0440\u0435\u0446\u044C: Yagir\n\u0421\u043F\u0440\u0430\u0439\u0442:
-        Yagir\n\u0422\u0435\u0441\u0442: Yagir"
+        Yagir\n\u0422\u0435\u0441\u0442: Yagir\nValariz"
     key: Cred_Info
-    hide: 1
+    hide: 0
   - phrases:
     - langName: eng
       phrase: Language

@@ -221,13 +221,13 @@ public class LangEditor : EditorWindow
             if (GUILayout.Button("Import", GUILayout.Width(position.width)))
             {
                 var s = new SaveLang();
-                s.languages = translates.languages;
-                s.words = translates.words;
                 XmlSerializer formatter = new XmlSerializer(typeof(SaveLang));
                 using (FileStream fs = new FileStream(@"C:" + @"\translates.xml", FileMode.OpenOrCreate))
                 {
                     s = (SaveLang)formatter.Deserialize(fs);
                 }
+                translates.languages = new List<string>();
+                translates.words = new List<WordKey>();
                 translates.languages = s.languages;
                 translates.words = s.words;
                 OnGUI();
