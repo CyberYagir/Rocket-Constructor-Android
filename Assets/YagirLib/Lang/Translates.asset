@@ -13,75 +13,141 @@ MonoBehaviour:
   m_Name: Translates
   m_EditorClassIdentifier: 
   languages:
-  - eng
+  - "\t"
   - rus
   - ukr
   words:
   - phrases:
-    - langName: eng
+    - langName: "\t"
+      phrase: Tutorial
+    - langName: rus
+      phrase: "\u041E\u0431\u0443\u0447\u0435\u043D\u0438\u0435"
+    - langName: ukr
+      phrase: "\u0422\u0443\u0442\u043E\u0440i\u0430\u043B"
+    key: Tutorial
+    hide: 0
+  - phrases:
+    - langName: "\t"
+      phrase: Select a group and click "Active"
+    - langName: rus
+      phrase: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0433\u0440\u0443\u043F\u043F\u0443
+        \u0438 \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \xAB\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C\xBB"
+    - langName: ukr
+      phrase: "\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044C \u0433\u0440\u0443\u043F\u0443
+        \u0442\u0430 \u043D\u0430\u0442\u0438\u0441\u043D\u0456\u0442\u044C \xAB\u0423\u0432i\u043C\u043A\u043D\u0443\u0442\u044B\xBB"
+    key: Active_Tutorial
+    hide: 0
+  - phrases:
+    - langName: "\t"
+      phrase: Select all parts of your rocket
+    - langName: rus
+      phrase: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0441\u0435
+        \u0447\u0430\u0441\u0442\u0438 \u0432\u0430\u0448\u0435\u0439 \u0440\u0430\u043A\u0435\u0442\u044B"
+    - langName: ukr
+      phrase: "\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044C \u0443\u0441\u0456
+        \u0434\u0435\u0442\u0430\u043B\u0456 \u0432\u0430\u0448\u043E\u0457 \u0440\u0430\u043A\u0435\u0442\u0438"
+    key: Sel_Parts
+    hide: 1
+  - phrases:
+    - langName: "\t"
+      phrase: 'In the main game you can take quests here.
+
+        There are quests
+        for Delivery and Conquest of Heights.
+
+        For quests with delivery,
+        you need to have a "Cargo" part on your rocket that needs to be activated
+        near the destination.'
+    - langName: rus
+      phrase: "\u0412 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0438\u0433\u0440\u0435
+        \u0432\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u0440\u043E\u0445\u043E\u0434\u0438\u0442\u044C
+        \u043A\u0432\u0435\u0441\u0442\u044B \u0437\u0434\u0435\u0441\u044C.\n\u0415\u0441\u0442\u044C
+        \u043A\u0432\u0435\u0441\u0442\u044B \u043D\u0430 \u0414\u043E\u0441\u0442\u0430\u0432\u043A\u0443
+        \u0438 \u041F\u043E\u043A\u043E\u0440\u0435\u043D\u0438\u0435 \u0432\u044B\u0441\u043E\u0442.\n\u0414\u043B\u044F
+        \u043A\u0432\u0435\u0441\u0442\u043E\u0432 \u0441 \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u043E\u0439
+        \u043D\u0430 \u0432\u0430\u0448\u0435\u0439 \u0440\u0430\u043A\u0435\u0442\u0435
+        \u0434\u043E\u043B\u0436\u043D\u0430 \u0431\u044B\u0442\u044C \u0434\u0435\u0442\u0430\u043B\u044C
+        \xABCargo\xBB, \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u043D\u0443\u0436\u043D\u043E
+        \u0430\u043A\u0442\u0438\u0432\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+        \u0442\u0430\u043A \u0436\u0435 \u043A\u0430\u043A \u0438 \u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043B\u044C."
+    - langName: ukr
+      phrase: "\u0412 \u043E\u0441\u043D\u043E\u0432\u043D\u0456\u0439 \u0433\u0440\u0456
+        \u0432\u0438 \u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u0440\u043E\u0439\u0442\u0438
+        \u043A\u0432\u0435\u0441\u0442\u0438 \u0442\u0443\u0442.\n\u0404 \u043A\u0432\u0435\u0441\u0442\u0438
+        \u043D\u0430 \u0414\u043E\u0441\u0442\u0430\u0432\u043A\u0443 \u0442\u0430
+        \u041F\u043E\u043A\u043E\u0440\u0435\u043D\u043D\u044F \u0432\u0438\u0441\u043E\u0442\u0438.\n\u0414\u043B\u044F
+        \u043A\u0432\u0435\u0441\u0442\u0456\u0432 \u0437 \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u043E\u044E
+        \u043D\u0430 \u0432\u0430\u0448 \u0440\u0430\u043A\u0435\u0442 \u043F\u043E\u0432\u0438\u043D\u0435\u043D
+        \u0431\u0443\u0442\u0438 \u0434\u0435\u0442\u0430\u043B\u044C \xAB\u0412\u0430\u043D\u0442\u0430\u0436\xBB,
+        \u044F\u043A\u0443 \u043F\u043E\u0442\u0440\u0456\u0431\u043D\u043E \u0430\u043A\u0442\u0438\u0432\u0443\u0432\u0430\u0442\u0438
+        \u0442\u0430\u043A, \u044F\u043A \u0456 \u0434\u0432\u0438\u0433\u0443\u043D."
+    key: TenderInfo
+    hide: 1
+  - phrases:
+    - langName: "\t"
       phrase: Remove
     - langName: rus
       phrase: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C"
     - langName: ukr
       phrase: "\u0417\u043D\u0438\u0449i\u0442\u0438"
     key: Remove
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Grav
     - langName: rus
       phrase: "\u0413\u0440\u0430\u0432"
     - langName: ukr
       phrase: "\u0413\u0440\u0430\u0432"
     key: Grav
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Friction
     - langName: rus
       phrase: "\u0422\u0440\u0435\u043D\u0438\u0435"
     - langName: ukr
       phrase: "\u0422\u0435\u0440\u0442\u044F"
     key: Air Friction
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Velocity
     - langName: rus
       phrase: "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C"
     - langName: ukr
       phrase: "\u0428\u0432\u0438\u0434\u043A\u0456\u0441\u0442\u044C"
     key: Velocity
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Altitude
     - langName: rus
       phrase: "\u0412\u044B\u0441\u043E\u0442\u0430"
     - langName: ukr
       phrase: "\u0412\u0438\u0441\u043E\u0442\u0430"
     key: Altitude
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Cost
     - langName: rus
       phrase: "\u0426\u0435\u043D\u0430"
     - langName: ukr
       phrase: "\u0426\u0435\u043D\u0430"
     key: Cost
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Fuel
     - langName: rus
       phrase: "\u0422\u043E\u043F\u043B\u0438\u0432\u043E"
     - langName: ukr
       phrase: "\u041F\u0430\u043B\u0438\u0432\u043E"
     key: Fuel
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Mass
     - langName: rus
       phrase: "\u041C\u0430\u0441\u0441\u0430"
@@ -90,70 +156,70 @@ MonoBehaviour:
     key: Mass
     hide: 0
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Selected
     - langName: rus
       phrase: "\u0412\u044B\u0431\u0440\u0430\u043D"
     - langName: ukr
       phrase: "\u041E\u0431\u0440\u0430\u043D\u0438\u0439"
     key: Selected
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Enter save name!
     - langName: rus
       phrase: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043C\u044F \u043C\u0438\u0440\u0430!"
     - langName: ukr
       phrase: "\u0412\u0432\u0435\u0434\u0456\u0442\u044C \u0456\u043C'\u044F \u043C\u0438\u0440\u0443!"
     key: Enter save name!
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: End
     - langName: rus
       phrase: "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C"
     - langName: ukr
       phrase: "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0438"
     key: End
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Detach
     - langName: rus
       phrase: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C"
     - langName: ukr
       phrase: "\u0421\u043A\u0438\u043D\u0443\u0442\u0438"
     key: Detach
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Active
     - langName: rus
       phrase: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C"
     - langName: ukr
       phrase: "\u0423\u0432i\u043C\u043A\u043D\u0443\u0442\u044B"
     key: Active
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Add Part
     - langName: rus
       phrase: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0447\u0430\u0441\u0442\u044C"
     - langName: ukr
       phrase: "\u0414\u043E\u0434\u0430\u0442\u0438 \u0447\u0430\u0441\u0442\u0438\u043D\u0443"
     key: Add Part
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Group
     - langName: rus
       phrase: "\u0421\u0442\u0443\u043F\u0435\u043D\u044C"
     - langName: ukr
       phrase: "\u0421\u0442\u0443\u043Fi\u043D\u044C"
     key: Group
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Fly
     - langName: rus
       phrase: "\u041F\u043E\u043B\u0451\u0442"
@@ -162,7 +228,7 @@ MonoBehaviour:
     key: Fly
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Deliver
     - langName: rus
       phrase: "\u0414\u043E\u0441\u0442\u0430\u0432\u043A\u0430"
@@ -171,7 +237,7 @@ MonoBehaviour:
     key: Deliver
     hide: 0
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Workers
     - langName: rus
       phrase: "\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u043B"
@@ -180,7 +246,7 @@ MonoBehaviour:
     key: Workers
     hide: 0
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Reward
     - langName: rus
       phrase: "\u041D\u0430\u0433\u0440\u0430\u0434\u0430"
@@ -189,7 +255,7 @@ MonoBehaviour:
     key: Reward
     hide: 0
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Mission
     - langName: rus
       phrase: "\u041C\u0438\u0441\u0441\u0438\u044F"
@@ -198,7 +264,7 @@ MonoBehaviour:
     key: Mission
     hide: 0
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Target
     - langName: rus
       phrase: "\u0426\u0435\u043B\u044C"
@@ -207,7 +273,7 @@ MonoBehaviour:
     key: Target
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Load
     - langName: rus
       phrase: "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C"
@@ -216,7 +282,7 @@ MonoBehaviour:
     key: Load
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Tenders
     - langName: rus
       phrase: "\u0422\u0435\u043D\u0434\u0435\u0440\u044B"
@@ -225,7 +291,7 @@ MonoBehaviour:
     key: Tenders
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: 'Mission end!
 
         Reward:'
@@ -236,7 +302,7 @@ MonoBehaviour:
     key: Reward_
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Continue
     - langName: rus
       phrase: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"
@@ -245,7 +311,7 @@ MonoBehaviour:
     key: Continue
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: OK
     - langName: rus
       phrase: OK
@@ -254,7 +320,7 @@ MonoBehaviour:
     key: OK
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Save
     - langName: rus
       phrase: "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C"
@@ -263,7 +329,7 @@ MonoBehaviour:
     key: Save
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Menu
     - langName: rus
       phrase: "\u041C\u0435\u043D\u044E"
@@ -272,16 +338,16 @@ MonoBehaviour:
     key: Menu
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Restart?
     - langName: rus
       phrase: "\u0420\u0435\u0441\u0442\u0430\u0440\u0442?"
     - langName: ukr
       phrase: "\u0420\u0435\u0441\u0442\u0430\u0440\u0442?"
     key: Restart?
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: No
     - langName: rus
       phrase: "\u041D\u0435\u0442"
@@ -290,7 +356,7 @@ MonoBehaviour:
     key: No
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Yes
     - langName: rus
       phrase: "\u0414\u0430"
@@ -299,7 +365,7 @@ MonoBehaviour:
     key: Yes
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Add money
     - langName: rus
       phrase: "+ \u0414\u0435\u043D\u044C\u0433\u0438"
@@ -308,7 +374,7 @@ MonoBehaviour:
     key: Add money
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Close
     - langName: rus
       phrase: "\u041D\u0430\u0437\u0430\u0434"
@@ -317,7 +383,7 @@ MonoBehaviour:
     key: Close
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Groups
     - langName: rus
       phrase: "\u0421\u0442\u0443\u043F\u0435\u043D\u0438"
@@ -326,7 +392,7 @@ MonoBehaviour:
     key: Groups
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: 'Creator: Yagir
 
         Sprites: Yagir
@@ -341,9 +407,9 @@ MonoBehaviour:
       phrase: "\u0422\u0432\u043E\u0440\u0435\u0446\u044C: Yagir\n\u0421\u043F\u0440\u0430\u0439\u0442:
         Yagir\n\u0422\u0435\u0441\u0442: Yagir\nValariz"
     key: Cred_Info
-    hide: 0
+    hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Language
     - langName: rus
       phrase: "\u042F\u0437\u044B\u043A"
@@ -352,7 +418,7 @@ MonoBehaviour:
     key: Language
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Music
     - langName: rus
       phrase: "\u041C\u0443\u0437\u044B\u043A\u0430"
@@ -361,7 +427,7 @@ MonoBehaviour:
     key: Music
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Sounds
     - langName: rus
       phrase: "\u0417\u0432\u0443\u043A\u0438"
@@ -370,7 +436,7 @@ MonoBehaviour:
     key: Sounds
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: New
     - langName: rus
       phrase: "\u041D\u043E\u0432\u044B\u0439"
@@ -379,7 +445,7 @@ MonoBehaviour:
     key: New
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Saves
     - langName: rus
       phrase: "\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F"
@@ -388,7 +454,7 @@ MonoBehaviour:
     key: Saves
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Back
     - langName: rus
       phrase: "\u041D\u0430\u0437\u0430\u0434"
@@ -397,7 +463,7 @@ MonoBehaviour:
     key: Back
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Credits
     - langName: rus
       phrase: "\u0410\u0432\u0442\u043E\u0440"
@@ -406,7 +472,7 @@ MonoBehaviour:
     key: Credits
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Options
     - langName: rus
       phrase: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
@@ -415,7 +481,7 @@ MonoBehaviour:
     key: Options
     hide: 1
   - phrases:
-    - langName: eng
+    - langName: "\t"
       phrase: Play
     - langName: rus
       phrase: "\u0418\u0433\u0440\u0430\u0442\u044C"
