@@ -1,6 +1,6 @@
 # Rocket-Constructor-Android
 
-Dev: Yagir
+Dev: Yagir <br>
 Game: <a href="https://play.google.com/store/apps/details?id=com.Yagir.inc.RocketConstuctor"> Play Market</a><br>
 
 <br>
