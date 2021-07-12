@@ -54,13 +54,12 @@ public class LangsList : MonoBehaviour
     public static Dictionary<string, Word> dictionary = new Dictionary<string, Word>();
 
 
-
-
-    private void Update()
+    private void Start()
     {
-    }
-    private void Start(){
-        DontDestroyOnLoad(gameObject);
+        if (Application.isPlaying)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
     }
     private void Awake()
     {

@@ -23,6 +23,8 @@ public class LangEditor : EditorWindow
     public bool setKeyRusWord;
     public int tab;
     public LangListObjects translates;
+
+    int oldTap = 0;
     [MenuItem("YagirLib/Langs")]
     public static void ShowWindow()
     {
@@ -57,7 +59,16 @@ public class LangEditor : EditorWindow
         }
         EditorWindow.GetWindow(typeof(LangEditor)).minSize = new Vector2(500, 300);
 
+
+
         tab = GUILayout.Toolbar(tab, new string[] { "Words", "Languages" });
+        
+        if (oldTap != tab)
+        {
+            oldTap = tab; 
+            GUI.FocusControl(null);
+
+        }
 
         if (tab == 0)
         {
